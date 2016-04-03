@@ -1,0 +1,3 @@
+c:\users\zskyl\documents\visual studio 2015\Projects\BlackJack\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.exe.config

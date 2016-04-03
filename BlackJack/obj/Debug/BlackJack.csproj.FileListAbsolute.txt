@@ -1,0 +1,21 @@
+c:\users\zskyl\documents\visual studio 2015\Projects\BlackJack\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.Form_main.resources
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.Properties.Resources.resources
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.Cache
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\Antoine\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.Form_console.resources
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.Form_console.resources
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.Form_main.resources
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.Properties.Resources.resources
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.Cache
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
