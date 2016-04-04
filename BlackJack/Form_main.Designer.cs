@@ -55,14 +55,16 @@
             // 
             this.PNL_game.BackgroundImage = global::BlackJack.Properties.Resources.table;
             this.PNL_game.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PNL_game.Controls.Add(this.BT_pause);
             this.PNL_game.Controls.Add(this.LB_playerScore);
             this.PNL_game.Controls.Add(this.LB_playerName);
             this.PNL_game.Controls.Add(this.BT_hit);
             this.PNL_game.Controls.Add(this.BT_stand);
+            this.PNL_game.Controls.Add(this.BT_pause);
             this.PNL_game.Location = new System.Drawing.Point(0, 0);
+            this.PNL_game.MaximumSize = new System.Drawing.Size(1280, 776);
+            this.PNL_game.MinimumSize = new System.Drawing.Size(1280, 776);
             this.PNL_game.Name = "PNL_game";
-            this.PNL_game.Size = new System.Drawing.Size(1385, 821);
+            this.PNL_game.Size = new System.Drawing.Size(1280, 776);
             this.PNL_game.TabIndex = 1;
             this.PNL_game.Visible = false;
             // 
@@ -76,7 +78,7 @@
             this.BT_pause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_pause.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold);
             this.BT_pause.ForeColor = System.Drawing.Color.White;
-            this.BT_pause.Location = new System.Drawing.Point(513, 657);
+            this.BT_pause.Location = new System.Drawing.Point(470, 615);
             this.BT_pause.Name = "BT_pause";
             this.BT_pause.Size = new System.Drawing.Size(380, 131);
             this.BT_pause.TabIndex = 4;
@@ -119,7 +121,7 @@
             this.BT_hit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_hit.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold);
             this.BT_hit.ForeColor = System.Drawing.Color.White;
-            this.BT_hit.Location = new System.Drawing.Point(718, 657);
+            this.BT_hit.Location = new System.Drawing.Point(675, 615);
             this.BT_hit.Name = "BT_hit";
             this.BT_hit.Size = new System.Drawing.Size(380, 131);
             this.BT_hit.TabIndex = 1;
@@ -137,7 +139,7 @@
             this.BT_stand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_stand.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold);
             this.BT_stand.ForeColor = System.Drawing.Color.White;
-            this.BT_stand.Location = new System.Drawing.Point(298, 657);
+            this.BT_stand.Location = new System.Drawing.Point(255, 615);
             this.BT_stand.Name = "BT_stand";
             this.BT_stand.Size = new System.Drawing.Size(380, 131);
             this.BT_stand.TabIndex = 0;
@@ -162,8 +164,10 @@
             this.PNL_main.Controls.Add(this.label1);
             this.PNL_main.Controls.Add(this.label2);
             this.PNL_main.Location = new System.Drawing.Point(0, 0);
+            this.PNL_main.MaximumSize = new System.Drawing.Size(1280, 776);
+            this.PNL_main.MinimumSize = new System.Drawing.Size(1280, 776);
             this.PNL_main.Name = "PNL_main";
-            this.PNL_main.Size = new System.Drawing.Size(1385, 821);
+            this.PNL_main.Size = new System.Drawing.Size(1280, 776);
             this.PNL_main.TabIndex = 0;
             // 
             // BT_cardCounter1
@@ -304,9 +308,9 @@
             this.BT_start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_start.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_start.ForeColor = System.Drawing.Color.White;
-            this.BT_start.Location = new System.Drawing.Point(0, 625);
+            this.BT_start.Location = new System.Drawing.Point(0, 623);
             this.BT_start.Name = "BT_start";
-            this.BT_start.Size = new System.Drawing.Size(1385, 195);
+            this.BT_start.Size = new System.Drawing.Size(1280, 151);
             this.BT_start.TabIndex = 119;
             this.BT_start.Text = "Jouer";
             this.BT_start.UseVisualStyleBackColor = false;
@@ -359,11 +363,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 819);
-            this.Controls.Add(this.PNL_game);
+            this.ClientSize = new System.Drawing.Size(1276, 773);
             this.Controls.Add(this.PNL_main);
+            this.Controls.Add(this.PNL_game);
             this.MaximumSize = new System.Drawing.Size(1400, 858);
-            this.MinimumSize = new System.Drawing.Size(1400, 858);
+            this.MinimumSize = new System.Drawing.Size(1278, 768);
             this.Name = "Form_main";
             this.Text = "BlackJack";
             this.PNL_game.ResumeLayout(false);

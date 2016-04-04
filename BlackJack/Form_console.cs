@@ -81,6 +81,7 @@ namespace BlackJack
                     undoAction();
                     break;
                 case "cl_righthand":
+                    game.resizeCards();
                     break;
                 default:
                     appendText("'" + command + "' n'est pas une commande. Tappez HELP pour afficher la liste de commandes.");
@@ -149,6 +150,43 @@ namespace BlackJack
         public void showLog(string text)
         {
             appendText(text);
+        }
+
+        private void TB_command_TextChanged(object sender, EventArgs e)
+        {
+            if (TB_command.TextLength > 0 && TB_command.Text[0] == '/')
+            {
+                string command = getCommandTyped(TB_command.Text.Substring(1));
+                if (command != null)
+                {
+                    TB_command.Text = '/' + command;
+                    TB_command.SelectionStart = 2;
+                    TB_command.SelectionLength = TB_command.TextLength - 2;
+                    Update();
+                }
+            }
+        }
+
+        private string getCommandTyped(string text)
+        {
+            string command = null;
+
+            if (text.Length > 0)
+            {
+                List<string> commandList = new List<string>() { "help", "info", "restart", "mainmenu", "cl_righthand", "clear", "pause", "quit" };
+                commandList.Sort();
+
+                for (int i = 0; i < commandList.Count(); i++)
+                {
+                    if (commandList[i].StartsWith(text))
+                    {
+                        command = commandList[i];
+                        break;
+                    }
+                }
+            }
+            
+            return command;
         }
     }
 }

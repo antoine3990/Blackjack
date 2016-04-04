@@ -185,7 +185,7 @@ namespace BlackJack
 
         private void showCards()
         {
-            for (int i = deck.toList().Count - 1; i >= 0; i--)
+            for (int i = deck.toList().Count; i > 0; i--)
             {
                 Controls["PNL_game"].Controls.Add(createCard(i));
                 Controls["PNL_game"].Controls["PB_card" + i.ToString()].BringToFront();
@@ -196,14 +196,27 @@ namespace BlackJack
         {
             PictureBox pb = new PictureBox();
             pb.Name = "PB_card" + cardNum.ToString();
-            pb.Size = new Size(185, 260);
+            pb.Size = new Size(121, 173);
             pb.Location = new Point(945 + cardNum, 48);
             pb.BackgroundImage = Properties.Resources.back;
             pb.BackgroundImageLayout = ImageLayout.Zoom;
             pb.BackColor = Color.Transparent;
             pb.Visible = true;
+            pb.Tag = "deck";
 
             return pb;
+        }
+        public void resizeCards()
+        {
+            for (int i = 52; i > 0; i--)
+            {
+                PictureBox pb = (PictureBox)Controls["PNL_game"].Controls["PB_card" + i.ToString()];
+                if (pb.Width > 125)
+                    pb.Size = new Size((int)(pb.Width * 0.8), (int)(pb.Height * 0.8));
+                else
+                    pb.Size = new Size((int)(pb.Width * 1.25), (int)(pb.Height * 1.25));
+            }
+            Update();
         }
 
         #endregion
@@ -227,10 +240,27 @@ namespace BlackJack
             else
                 newCard = current.hit(deck);
 
+            updateHitCard(deck.toList().Count);
             setHitLog(current, newCard, oldScore);
             console.showLog(current);
 
+            LB_playerScore.Text = "Score: " + current.score.ToString();
+
             getWinner();
+        }
+        private void updateHitCard(int cards)
+        {
+            PictureBox card = (PictureBox)Controls["PNL_game"].Controls["PB_card" + (52 - cards).ToString()];
+            card.Tag = "player" + (currentPlayer + 1).ToString();
+            card.BackgroundImage = players[currentPlayer].cards[players[currentPlayer].cards.Count - 1].img;
+            card.BringToFront();
+
+            int maxCards = 10;
+            int playerCards = players[currentPlayer].cards.Count - 1;
+            int x = (164 + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30) * (currentPlayer + 1);
+            int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0);
+            card.Location = new Point(x, y);
+            Update();
         }
         private void setHitLog(Player player, Card card, int oldScore)
         {

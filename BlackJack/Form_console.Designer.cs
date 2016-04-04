@@ -53,6 +53,7 @@
             this.TB_command.Name = "TB_command";
             this.TB_command.Size = new System.Drawing.Size(301, 21);
             this.TB_command.TabIndex = 0;
+            this.TB_command.TextChanged += new System.EventHandler(this.TB_command_TextChanged);
             // 
             // BT_execute
             // 

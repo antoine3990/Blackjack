@@ -38,8 +38,6 @@ namespace BlackJack
             else if (score > 21)
                 status = statuses.busting;
 
-
-
             return newCard;
         }
 
