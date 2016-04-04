@@ -80,6 +80,8 @@ namespace BlackJack
                 case "undo":
                     undoAction();
                     break;
+                case "cl_righthand":
+                    break;
                 default:
                     appendText("'" + command + "' n'est pas une commande. Tappez HELP pour afficher la liste de commandes.");
                     break;
@@ -95,14 +97,15 @@ namespace BlackJack
 
         private void showHelp()
         {
-            appendText("HELP" + "                 " + "Affiche la fenêtre d'aide ci-contre");
-            appendText("INFO" + "                  " + "Affiche les informations des joueurs");
-            appendText("UNDO" + "               " + "Annule le tour du dernier joueur");
-            appendText("RESTART" + "         " + "Réinitialise la partie");
-            appendText("MAINMENU" + "     " + "Réinitialise la partie et retourne au menu principal");
-            appendText("CLEAR" + "              " + "Efface le contenu de la console");
-            appendText("PAUSE" + "              " + "Pause la partie en cours");
-            appendText("QUIT" + "                  " + "Ferme l'application");
+            appendText("HELP" + "                         " + "Affiche la fenêtre d'aide ci-contre");
+            appendText("INFO" + "                          " + "Affiche les informations des joueurs");
+            appendText("UNDO" + "                       " + "Annule le tour du dernier joueur");
+            appendText("RESTART" + "                 " + "Réinitialise la partie");
+            appendText("MAINMENU" + "             " + "Réinitialise la partie et retourne au menu principal");
+            appendText("CL_RIGHTHAND" + "    " + "???");
+            appendText("CLEAR" + "                      " + "Efface le contenu de la console");
+            appendText("PAUSE" + "                      " + "Pause la partie en cours");
+            appendText("QUIT" + "                          " + "Ferme l'application");
         }
 
         private void undoAction()

@@ -273,7 +273,7 @@ namespace BlackJack
 
         private void getWinner()
         {
-            bool endGame = players[0].status == Player.statuses.standing && players[0].status == Player.statuses.standing;
+            bool endGame = players[0].status == Player.statuses.standing && players[1].status == Player.statuses.standing;
             List<Player> winners = Dealer.getWinner(players[0], players[1], endGame);
 
             if (winners.Count > 0)
