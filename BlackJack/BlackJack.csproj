@@ -148,6 +148,7 @@
     <Content Include="Images\4\8.png" />
     <Content Include="Images\4\9.png" />
     <Content Include="Images\back.png" />
+    <Content Include="_TO DO.txt" />
     <None Include="Images\incorrect_small.png" />
     <None Include="Images\correct_small.png" />
     <None Include="Images\table.png" />

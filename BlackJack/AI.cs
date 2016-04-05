@@ -56,19 +56,22 @@ namespace BlackJack
                 return false;
         }
 
-        private int chanceToWin(Cards deck)
+        private int chanceToWin(Cards originalDeck)
         {
+            List<Card> deck = new List<Card>();
             List<Card> notBusting = new List<Card>();
             
             if (!countingCard)
-                deck = new Cards();
+                deck = new Cards().toList();
+            else
+                deck = originalDeck.toList().Select(card => new Card(card.suit, card.rank)).ToList();
 
-            foreach (Card card in deck.toList())
+            foreach (Card card in deck)
                 if (this.score + (card.rank > 10 ? 10 : card.rank) <= 21)
                     notBusting.Add(card);
 
             int goodCards = notBusting.Count;
-            int totalCards = deck.toList().Count;
+            int totalCards = deck.Count;
             int chanceToWin = (goodCards / totalCards) * 100;
             
             addToLog(defineLogText(goodCards, totalCards, chanceToWin));

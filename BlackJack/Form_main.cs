@@ -14,15 +14,19 @@ namespace BlackJack
     public partial class Form_main : Form
     {
         public List<Player> players = new List<Player>();
-        private int currentPlayer = -1;
-        private Form_console console;
         private Cards deck = new Cards();
+        private Form_console console;
+
+        private int currentPlayer = -1;
 
         public Form_main()
         {
             InitializeComponent();
             initComboBoxDifficulty();
             showCards();
+
+            //console = new Form_console(this);
+            //console.ShowDialog();
         }
 
         #region Player selection
@@ -206,17 +210,21 @@ namespace BlackJack
 
             return pb;
         }
+        
+        public bool cardsRotated = false;
         public void resizeCards()
         {
             for (int i = 52; i > 0; i--)
             {
                 PictureBox pb = (PictureBox)Controls["PNL_game"].Controls["PB_card" + i.ToString()];
-                if (pb.Width > 125)
-                    pb.Size = new Size((int)(pb.Width * 0.8), (int)(pb.Height * 0.8));
+
+                if (!cardsRotated)
+                    pb.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 else
-                    pb.Size = new Size((int)(pb.Width * 1.25), (int)(pb.Height * 1.25));
+                    pb.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
             }
             Update();
+            Refresh();
         }
 
         #endregion
@@ -260,7 +268,12 @@ namespace BlackJack
             int x = (164 + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30) * (currentPlayer + 1);
             int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0);
             card.Location = new Point(x, y);
+
+            if (cardsRotated)
+                card.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
             Update();
+            Refresh();
         }
         private void setHitLog(Player player, Card card, int oldScore)
         {
@@ -357,6 +370,7 @@ namespace BlackJack
         {
             reset();
 
+            deck = new Cards();
             foreach (Player p in players)
                 p.reset();
         }

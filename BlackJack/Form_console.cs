@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlackJack
@@ -13,6 +8,7 @@ namespace BlackJack
     public partial class Form_console: Form
     {
         Form_main game;
+        int prevTextLength = 0;
         public Form_console(Form_main game)
         {
             InitializeComponent();
@@ -81,6 +77,7 @@ namespace BlackJack
                     undoAction();
                     break;
                 case "cl_righthand":
+                    game.cardsRotated = game.cardsRotated ? false : true;
                     game.resizeCards();
                     break;
                 default:
@@ -154,17 +151,19 @@ namespace BlackJack
 
         private void TB_command_TextChanged(object sender, EventArgs e)
         {
-            if (TB_command.TextLength > 0 && TB_command.Text[0] == '/')
+            int textLength = TB_command.TextLength;
+            if (textLength > 0 && TB_command.Text[0] == '/' && textLength > prevTextLength)
             {
-                string command = getCommandTyped(TB_command.Text.Substring(1));
+                string command = getCommandTyped(TB_command.Text.Substring(1).ToLower());
                 if (command != null)
                 {
                     TB_command.Text = '/' + command;
-                    TB_command.SelectionStart = 2;
-                    TB_command.SelectionLength = TB_command.TextLength - 2;
+                    TB_command.SelectionStart = textLength;
+                    TB_command.SelectionLength = TB_command.TextLength - textLength;
                     Update();
                 }
             }
+            prevTextLength = textLength;
         }
 
         private string getCommandTyped(string text)
@@ -173,7 +172,7 @@ namespace BlackJack
 
             if (text.Length > 0)
             {
-                List<string> commandList = new List<string>() { "help", "info", "restart", "mainmenu", "cl_righthand", "clear", "pause", "quit" };
+                List<string> commandList = new List<string>() { "help", "info", "restart", "mainmenu", "cl_righthand", "clear", "pause", "quit", "undo" };
                 commandList.Sort();
 
                 for (int i = 0; i < commandList.Count(); i++)

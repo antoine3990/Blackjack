@@ -31,14 +31,17 @@ namespace BlackJack
         {
             List<Player> winner = new List<Player>();
 
-            if (player1.score == player2.score)
-                winner.AddRange(new List<Player> { player1, player2 });
-            else if (player1.status == Player.statuses.busting)
+            if (player1.status == Player.statuses.busting)
                 winner.Add(player2);
             else if (player2.status == Player.statuses.busting)
                 winner.Add(player1);
             else if (endGame)
-                winner.Add(player1.score > player2.score ? player1 : player2);
+            {
+                if (player1.score == player2.score)
+                    winner.AddRange(new List<Player> { player1, player2 });
+                else
+                    winner.Add(player1.score > player2.score ? player1 : player2);
+            }
 
             return winner;
         }
