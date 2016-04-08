@@ -68,13 +68,34 @@ namespace BlackJack
             PNL_game.Show();
             PNL_game.BringToFront();
             changePlayer();
+            
 
             console = new Form_console(this);
+<<<<<<< HEAD
             //console.Show();
 
             for (int i = 0; i < players.Count; i++)
                 for (int j = 1; j <= 2; j++)
                     updateHitCard(deck.toList().Count - j + (i * 2), i, j);
+=======
+            console.Show();
+
+            //Player 1 hit
+            hit();
+            changePlayer();
+
+            //Player 2 hit
+            hit();
+            changePlayer();
+
+            //player 1 hit #2
+            hit();
+            changePlayer();
+
+            //player 2 hit #2
+            hit();
+            changePlayer();
+>>>>>>> 71cde679f51361db65341755b186f2e500c0c285
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
