@@ -246,10 +246,13 @@ namespace BlackJack
 
             if (current is AI)
             {
-                if (((AI)current).play(players[currentPlayer == 0 ? 1 : 0], deck))
-                {
-                    console.showLog(current);
-                    newCard = current.hit(deck);
+                while (current.status == Player.statuses.playing) //Added this loop to make the Ai play
+                { 
+                    if (((AI)current).play(players[currentPlayer == 0 ? 1 : 0], deck))
+                    {
+                        console.showLog(current);
+                        newCard = current.hit(deck);
+                    }
                 }
             }
             else

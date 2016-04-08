@@ -29,3 +29,13 @@ C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJ
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.exe
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.pdb
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.Form_console.resources
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.Form_main.resources
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.Properties.Resources.resources
+C:\Users\196128636\Desktop\Maths\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.Cache
