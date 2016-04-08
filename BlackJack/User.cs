@@ -10,7 +10,7 @@ namespace BlackJack
     {
         public string name { get; private set; }
 
-        public User(string name)
+        public User(string name, Cards deck) : base(deck)
         {
             this.name = name;
         }

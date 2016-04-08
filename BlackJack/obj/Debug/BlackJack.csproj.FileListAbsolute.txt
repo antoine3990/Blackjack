@@ -28,3 +28,4 @@ C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJ
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.Cache
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.exe
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache

@@ -25,7 +25,7 @@ namespace BlackJack
         public bool countingCard { get; set; }
         public int id { get; private set; }
         
-        public AI(bool countingCard, riskLevel behavior, int id = -1)
+        public AI(bool countingCard, riskLevel behavior, Cards deck, int id = -1) : base(deck)
         {
             this.countingCard = countingCard;
             this.behavior = behavior;

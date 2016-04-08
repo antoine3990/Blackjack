@@ -14,13 +14,15 @@ namespace BlackJack
     public partial class Form_main : Form
     {
         public List<Player> players = new List<Player>();
-        private Cards deck = new Cards();
+        private Cards deck;
         private Form_console console;
 
         private int currentPlayer = -1;
 
         public Form_main()
         {
+            deck = new Cards();
+
             InitializeComponent();
             initComboBoxDifficulty();
             showCards();
@@ -68,7 +70,11 @@ namespace BlackJack
             changePlayer();
 
             console = new Form_console(this);
-            console.Show();
+            //console.Show();
+
+            for (int i = 0; i < players.Count; i++)
+                for (int j = 1; j <= 2; j++)
+                    updateHitCard(deck.toList().Count - j + (i * 2), i, j);
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -100,7 +106,7 @@ namespace BlackJack
                 return;
             }
 
-            players.Add(new User(name));
+            players.Add(new User(name, deck));
         }
         private void addAI(int i)
         {
@@ -108,7 +114,7 @@ namespace BlackJack
             bool cardCounter = ((Button)Controls["PNL_main"].Controls["BT_cardCounter" + i.ToString()]).Tag.ToString() == "yes";
             AI.riskLevel risk = difficulty == 0 ? AI.riskLevel.prudent : difficulty == 1 ? AI.riskLevel.standard : AI.riskLevel.brave;
 
-            players.Add(new AI(cardCounter, risk, i));
+            players.Add(new AI(cardCounter, risk, deck, i));
         }
 
         private void initComboBoxDifficulty()
@@ -233,6 +239,7 @@ namespace BlackJack
 
         private void hit()
         {
+            BT_hit.Enabled = false;
             Player current = players[currentPlayer];
             Card newCard = new Card(1, 1);
             int oldScore = current.score;
@@ -248,24 +255,24 @@ namespace BlackJack
             else
                 newCard = current.hit(deck);
 
-            updateHitCard(deck.toList().Count);
+            updateHitCard(deck.toList().Count, currentPlayer, players[currentPlayer].cards.Count - 1);
             setHitLog(current, newCard, oldScore);
             console.showLog(current);
 
             LB_playerScore.Text = "Score: " + current.score.ToString();
 
             getWinner();
+            BT_hit.Enabled = true;
         }
-        private void updateHitCard(int cards)
+        private void updateHitCard(int cards, int player, int playerCards)
         {
             PictureBox card = (PictureBox)Controls["PNL_game"].Controls["PB_card" + (52 - cards).ToString()];
-            card.Tag = "player" + (currentPlayer + 1).ToString();
-            card.BackgroundImage = players[currentPlayer].cards[players[currentPlayer].cards.Count - 1].img;
+            card.Tag = "player" + (player + 1).ToString();
+            card.BackgroundImage = players[player].cards[playerCards - 1].img;
             card.BringToFront();
 
             int maxCards = 10;
-            int playerCards = players[currentPlayer].cards.Count - 1;
-            int x = (164 + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30) * (currentPlayer + 1);
+            int x = (164 + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30) * (player == 0 ? 1 : 3);
             int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0);
             card.Location = new Point(x, y);
 
