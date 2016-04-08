@@ -39,7 +39,12 @@ namespace BlackJack
                 addToLog("Standing.");
                 return false;
             }
-            else if (this.score <= 11 || opponent.score == 21)
+            else if ( opponent.score == 21)
+            {
+                addToLog("Hitting. L'adversaire a un score de 21.");
+                return true;
+            }
+            else if (this.score <= 11)
             {
                 addToLog("Hitting. Score moins élevé que 12.");
                 return true;

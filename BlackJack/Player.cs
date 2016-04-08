@@ -10,6 +10,7 @@ namespace BlackJack
     {
         public List<Card> cards { get; private set; }
         public int score { get; private set; }
+        private int asReduced = 0; // Nombre d'As dont le score a été réduit de 11 à 1.
 
         public enum statuses { playing, standing, busting, paused }
         public statuses status { get; private set; }
@@ -32,9 +33,28 @@ namespace BlackJack
 
             // Si la carte pigée est un As
             if (newCard.rank == 1)
-                score += score <= 10 ? 11 : newCard.rank; // Incrémenter de 1 si le score est plus haut que 10, sinon de 11.
+            {
+                // Incrémenter de 1 si le score est plus haut que 10, sinon de 11.
+                if (score <= 10)
+                {
+                    score += 11;
+                    asReduced++;
+                }
+                else
+                    score += newCard.rank;
+            }
             else
-                score += newCard.rank > 10 ? 10 : newCard.rank; // Incrémenter le score du rang de la carte jusqu'à un maximum de 10.
+            {
+                // Incrémenter le score du rang de la carte jusqu'à un maximum de 10.
+                score += newCard.rank > 10 ? 10 : newCard.rank;
+
+                // Si le joueur possède un as compté à 11 points, réduire cet as à 1 point.
+                if (getAs() > 0 && getAs() > asReduced && score > 21)
+                {
+                    score -= 10;
+                    asReduced++;
+                }
+            }
 
             if (score == 21)
                 status = statuses.standing;
@@ -63,6 +83,17 @@ namespace BlackJack
                 return log[log.Count - 1];
             else
                 return null;
+        }
+
+        public int getAs()
+        {
+            int count = 0;
+
+            foreach (Card c in cards)
+                if (c.rank == 1)
+                    count++;
+
+            return count;
         }
     }
 }

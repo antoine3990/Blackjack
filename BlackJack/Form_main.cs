@@ -176,10 +176,15 @@ namespace BlackJack
         
         private void BT_stand_Click(object sender, EventArgs e)
         {
-            players[currentPlayer].stand();
+            Player current = players[currentPlayer];
+            current.stand();
 
-            ((User)players[currentPlayer]).addToLog("Standing.");
-            console.showLog(players[currentPlayer]);
+            if (current is AI)
+                ((AI)current).addToLog("Standing.");
+            else
+                ((User)current).addToLog("Standing.");
+
+            console.showLog(current);
 
             changePlayer();
             getWinner();
@@ -252,16 +257,26 @@ namespace BlackJack
                     {
                         console.showLog(current);
                         newCard = current.hit(deck);
+
+                        if (oldScore >= current.score)
+                            ((AI)current).addToLog("Le pointage d'un As à été réduit à 1. Score -10.");
+
+                        updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
+                        setHitLog(current, newCard, oldScore);
+                        console.showLog(current);
+
+                        LB_playerScore.Text = "Score: " + current.score.ToString();
                     }
                     else
                         console.showLog(current);
                 }
+
+                changePlayer();
             }
             else
-                newCard = current.hit(deck);
-
-            if (newCard.rank != -1)
             {
+                newCard = current.hit(deck);
+                
                 updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
                 setHitLog(current, newCard, oldScore);
                 console.showLog(current);
