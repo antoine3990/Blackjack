@@ -272,7 +272,7 @@ namespace BlackJack
             card.BringToFront();
 
             int maxCards = 6;
-            int x = (164 + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30) * (player == 0 ? 1 : 3);
+            int x = (164 * (player == 0 ? 1 : 4) + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30);
             int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0);
             card.Location = new Point(x, y);
 
