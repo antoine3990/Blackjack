@@ -17,7 +17,6 @@ namespace BlackJack
             set
             {
                 behavior = value;
-                lowestChanceOfHit = (int)behavior;
             }
         }
 
@@ -29,6 +28,7 @@ namespace BlackJack
         {
             this.countingCard = countingCard;
             this.behavior = behavior;
+            lowestChanceOfHit = (int)behavior;
             this.id = id;
         }
 
@@ -56,7 +56,7 @@ namespace BlackJack
                 return false;
         }
 
-        private int chanceToWin(Cards originalDeck)
+        private decimal chanceToWin(Cards originalDeck)
         {
             List<Card> deck = new List<Card>();
             List<Card> notBusting = new List<Card>();
@@ -72,14 +72,14 @@ namespace BlackJack
 
             int goodCards = notBusting.Count;
             int totalCards = deck.Count;
-            int chanceToWin = (goodCards / totalCards) * 100;
+            decimal chanceToWin = Math.Round(Decimal.Divide(goodCards, totalCards) * 100, 2);
             
             addToLog(defineLogText(goodCards, totalCards, chanceToWin));
 
             return chanceToWin;
         }
         
-        public string defineLogText(int goodCards, int totalCards, int chanceToWin)
+        public string defineLogText(int goodCards, int totalCards, decimal chanceToWin)
         {
             string status = "Standing";
             string sign = "<";
