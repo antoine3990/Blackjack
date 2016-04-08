@@ -241,7 +241,7 @@ namespace BlackJack
         {
             BT_hit.Enabled = false;
             Player current = players[currentPlayer];
-            Card newCard = new Card(1, 1);
+            Card newCard = new Card(-1, -1);
             int oldScore = current.score;
 
             if (current is AI)
@@ -253,14 +253,19 @@ namespace BlackJack
                         console.showLog(current);
                         newCard = current.hit(deck);
                     }
+                    else
+                        console.showLog(current);
                 }
             }
             else
                 newCard = current.hit(deck);
 
-            updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
-            setHitLog(current, newCard, oldScore);
-            console.showLog(current);
+            if (newCard.rank != -1)
+            {
+                updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
+                setHitLog(current, newCard, oldScore);
+                console.showLog(current);
+            }
 
             LB_playerScore.Text = "Score: " + current.score.ToString();
 

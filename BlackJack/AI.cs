@@ -53,7 +53,11 @@ namespace BlackJack
             if (chanceToWin(deck) >= lowestChanceOfHit)
                 return true;
             else
+            {
+                stand();
+                addToLog("Standing.");
                 return false;
+            }
         }
 
         private decimal chanceToWin(Cards originalDeck)
