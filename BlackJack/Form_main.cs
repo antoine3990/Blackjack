@@ -69,33 +69,12 @@ namespace BlackJack
             PNL_game.BringToFront();
             changePlayer();
             
-
             console = new Form_console(this);
-<<<<<<< HEAD
-            //console.Show();
+            console.Show();
 
             for (int i = 0; i < players.Count; i++)
                 for (int j = 1; j <= 2; j++)
-                    updateHitCard(deck.toList().Count - j + (i * 2), i, j);
-=======
-            console.Show();
-
-            //Player 1 hit
-            hit();
-            changePlayer();
-
-            //Player 2 hit
-            hit();
-            changePlayer();
-
-            //player 1 hit #2
-            hit();
-            changePlayer();
-
-            //player 2 hit #2
-            hit();
-            changePlayer();
->>>>>>> 71cde679f51361db65341755b186f2e500c0c285
+                    updateHitCard((deck.toList().Count + j + (i * 2)) - 1, i, j);
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -276,7 +255,7 @@ namespace BlackJack
             else
                 newCard = current.hit(deck);
 
-            updateHitCard(deck.toList().Count, currentPlayer, players[currentPlayer].cards.Count - 1);
+            updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count - 1);
             setHitLog(current, newCard, oldScore);
             console.showLog(current);
 
@@ -292,7 +271,7 @@ namespace BlackJack
             card.BackgroundImage = players[player].cards[playerCards - 1].img;
             card.BringToFront();
 
-            int maxCards = 10;
+            int maxCards = 6;
             int x = (164 + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30) * (player == 0 ? 1 : 3);
             int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0);
             card.Location = new Point(x, y);
