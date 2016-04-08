@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.PNL_game = new System.Windows.Forms.Panel();
-            this.BT_pause = new System.Windows.Forms.Button();
             this.LB_playerScore = new System.Windows.Forms.Label();
             this.LB_playerName = new System.Windows.Forms.Label();
             this.BT_hit = new System.Windows.Forms.Button();
             this.BT_stand = new System.Windows.Forms.Button();
+            this.BT_pause = new System.Windows.Forms.Button();
             this.PNL_main = new System.Windows.Forms.Panel();
             this.BT_cardCounter1 = new System.Windows.Forms.Button();
             this.BT_cardCounter2 = new System.Windows.Forms.Button();
@@ -67,25 +67,6 @@
             this.PNL_game.Size = new System.Drawing.Size(1280, 776);
             this.PNL_game.TabIndex = 1;
             this.PNL_game.Visible = false;
-            // 
-            // BT_pause
-            // 
-            this.BT_pause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
-            this.BT_pause.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BT_pause.FlatAppearance.BorderSize = 0;
-            this.BT_pause.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(150)))));
-            this.BT_pause.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(130)))));
-            this.BT_pause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_pause.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold);
-            this.BT_pause.ForeColor = System.Drawing.Color.White;
-            this.BT_pause.Location = new System.Drawing.Point(470, 615);
-            this.BT_pause.Name = "BT_pause";
-            this.BT_pause.Size = new System.Drawing.Size(380, 131);
-            this.BT_pause.TabIndex = 4;
-            this.BT_pause.Text = "Pause";
-            this.BT_pause.UseVisualStyleBackColor = false;
-            this.BT_pause.Visible = false;
-            this.BT_pause.Click += new System.EventHandler(this.BT_pause_Click);
             // 
             // LB_playerScore
             // 
@@ -146,6 +127,25 @@
             this.BT_stand.Text = "Stand";
             this.BT_stand.UseVisualStyleBackColor = false;
             this.BT_stand.Click += new System.EventHandler(this.BT_stand_Click);
+            // 
+            // BT_pause
+            // 
+            this.BT_pause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
+            this.BT_pause.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BT_pause.FlatAppearance.BorderSize = 0;
+            this.BT_pause.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(150)))));
+            this.BT_pause.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(130)))));
+            this.BT_pause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_pause.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Bold);
+            this.BT_pause.ForeColor = System.Drawing.Color.White;
+            this.BT_pause.Location = new System.Drawing.Point(470, 615);
+            this.BT_pause.Name = "BT_pause";
+            this.BT_pause.Size = new System.Drawing.Size(380, 131);
+            this.BT_pause.TabIndex = 4;
+            this.BT_pause.Text = "Pause";
+            this.BT_pause.UseVisualStyleBackColor = false;
+            this.BT_pause.Visible = false;
+            this.BT_pause.Click += new System.EventHandler(this.BT_pause_Click);
             // 
             // PNL_main
             // 
@@ -364,8 +364,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1276, 773);
-            this.Controls.Add(this.PNL_main);
             this.Controls.Add(this.PNL_game);
+            this.Controls.Add(this.PNL_main);
             this.MaximumSize = new System.Drawing.Size(1400, 858);
             this.MinimumSize = new System.Drawing.Size(1278, 768);
             this.Name = "Form_main";

@@ -255,7 +255,7 @@ namespace BlackJack
             else
                 newCard = current.hit(deck);
 
-            updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count - 1);
+            updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
             setHitLog(current, newCard, oldScore);
             console.showLog(current);
 
