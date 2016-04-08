@@ -22,6 +22,14 @@ namespace BlackJack
             status = statuses.playing;
         }
 
+        //Can probably be remove
+        //public Player(Cards deck)
+        //{
+        //    cards = new List<Card>();
+        //    log = new List<string>();
+        //    status = statuses.playing;
+        //}
+
         public Card hit(Cards deck)
         {
             Card newCard = deck.get();

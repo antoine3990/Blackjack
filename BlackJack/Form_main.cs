@@ -66,9 +66,26 @@ namespace BlackJack
             PNL_game.Show();
             PNL_game.BringToFront();
             changePlayer();
+            
 
             console = new Form_console(this);
             console.Show();
+
+            //Player 1 hit
+            hit();
+            changePlayer();
+
+            //Player 2 hit
+            hit();
+            changePlayer();
+
+            //player 1 hit #2
+            hit();
+            changePlayer();
+
+            //player 2 hit #2
+            hit();
+            changePlayer();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
