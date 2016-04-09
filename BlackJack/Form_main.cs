@@ -393,11 +393,7 @@ namespace BlackJack
         {
             BT_hit.Show();
             BT_stand.Show();
-
-
-            foreach (Player p in players)
-                if (p is User)
-                    BT_pause.Hide();
+            //BT_pause.Hide();
 
             LB_playerScore.Text = "Score: ";
             LB_playerName.Text = "";
@@ -412,11 +408,18 @@ namespace BlackJack
             reset();
 
             deck = new Cards();
+
+            foreach (Control c in Controls["PNL_game"].Controls)
+                Controls.Remove(c);
             foreach (Player p in players)
-                p.reset(deck, STARTING_CARDS);
+                p.reset();
+            Update();
+            Refresh();
         }
         public void toMain()
         {
+            reset();
+
             for (int i = 1; i <= players.Count; i++)
             {
                 ((ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()]).SelectedIndex = 0;
@@ -425,8 +428,6 @@ namespace BlackJack
             }
             players.Clear();
 
-            reset();
-            
             PNL_main.Show();
             PNL_main.BringToFront();
         }
