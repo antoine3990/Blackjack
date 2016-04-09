@@ -401,6 +401,9 @@ namespace BlackJack
             reset();
 
             deck = new Cards();
+
+            foreach (Control c in Controls["PNL_game"].Controls)
+                Controls.Remove(c);
             foreach (Player p in players)
                 p.reset();
         }
