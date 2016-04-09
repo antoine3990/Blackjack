@@ -258,25 +258,22 @@ namespace BlackJack
 
             if (current is AI)
             {
-                while (current.status == Player.statuses.playing) //Added this loop to make the Ai play
-                { 
-                    if (((AI)current).play(players[currentPlayer == 0 ? 1 : 0], deck))
-                    {
-                        console.showLog(current);
-                        newCard = current.hit(deck);
+                if (((AI)current).play(players[currentPlayer == 0 ? 1 : 0], deck))
+                {
+                    console.showLog(current);
+                    newCard = current.hit(deck);
 
-                        if (oldScore >= current.score)
-                            ((AI)current).addToLog("Le pointage d'un As à été réduit à 1. Score -10.");
+                    if (oldScore >= current.score)
+                        ((AI)current).addToLog("Le pointage d'un As à été réduit à 1. Score -10.");
 
-                        updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
-                        setHitLog(current, newCard, oldScore);
-                        console.showLog(current);
+                    updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
+                    setHitLog(current, newCard, oldScore);
+                    console.showLog(current);
 
-                        LB_playerScore.Text = "Score: " + current.score.ToString();
-                    }
-                    else
-                        console.showLog(current);
+                    LB_playerScore.Text = "Score: " + current.score.ToString();
                 }
+                else
+                    console.showLog(current);
 
                 changePlayer();
             }
@@ -290,6 +287,7 @@ namespace BlackJack
             }
 
             LB_playerScore.Text = "Score: " + current.score.ToString();
+            changePlayer();
 
             getWinner();
             BT_hit.Enabled = true;
