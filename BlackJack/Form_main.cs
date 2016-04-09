@@ -414,11 +414,9 @@ namespace BlackJack
             LB_playerScore.Text = "Score: ";
             LB_playerName.Text = players[currentPlayer] is AI ? "AI #" + ((AI)players[currentPlayer]).id : ((User)players[currentPlayer]).name;
 
-            foreach (Control c in Controls["PNL_game"].Controls)
-            {
-                if (c.Name.StartsWith("PB_card"))
-                    Controls["PNL_game"].Controls.Remove(c);
-            }
+            for (int i = 1; i <= 52; i++)
+                Controls["PNL_game"].Controls.Remove(Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0]);
+            
             Update();
             Refresh();
 
@@ -426,9 +424,10 @@ namespace BlackJack
         }
         public void restart()
         {
-            reset();
             deck = new Cards();
-            
+            reset();
+            setStartingCards();
+
             foreach (Player p in players)
                 p.reset(deck, STARTING_CARDS);
         }
