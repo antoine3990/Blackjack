@@ -413,6 +413,8 @@ namespace BlackJack
                 Controls.Remove(c);
             foreach (Player p in players)
                 p.reset();
+            Update();
+            Refresh();
         }
         public void toMain()
         {
