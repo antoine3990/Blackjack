@@ -18,6 +18,7 @@ namespace BlackJack
         private Form_console console;
 
         private int currentPlayer = -1;
+        private const int STARTING_CARDS = 1;
 
         public Form_main()
         {
@@ -72,9 +73,7 @@ namespace BlackJack
             console = new Form_console(this);
             console.Show();
 
-            for (int i = 0; i < players.Count; i++)
-                for (int j = 1; j <= 2; j++)
-                    updateHitCard((deck.toList().Count + j + (i * 2)) - 1, i, j);
+            setStartingCards();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -95,6 +94,14 @@ namespace BlackJack
             showLabelCardCounter();
         }
 
+        private void setStartingCards()
+        {
+            int cardsToGive = players.Count * STARTING_CARDS;
+            for (int i = players.Count; i > 0; i--)
+                for (int j = 1; j <= STARTING_CARDS; j++)
+                    updateHitCard((deck.toList().Count - cardsToGive /i + j) + (STARTING_CARDS*2 - 1), i - 1, j);
+        }
+
         private void addUser(int i)
         {
             string name = ((TextBox)Controls["PNL_main"].Controls["TB_name" + i.ToString()]).Text;
@@ -106,7 +113,7 @@ namespace BlackJack
                 return;
             }
 
-            players.Add(new User(name, deck));
+            players.Add(new User(name, deck, STARTING_CARDS));
         }
         private void addAI(int i)
         {
@@ -114,7 +121,7 @@ namespace BlackJack
             bool cardCounter = ((Button)Controls["PNL_main"].Controls["BT_cardCounter" + i.ToString()]).Tag.ToString() == "yes";
             AI.riskLevel risk = difficulty == 0 ? AI.riskLevel.prudent : difficulty == 1 ? AI.riskLevel.standard : AI.riskLevel.brave;
 
-            players.Add(new AI(cardCounter, risk, deck, i));
+            players.Add(new AI(cardCounter, risk, i, deck, STARTING_CARDS));
         }
 
         private void initComboBoxDifficulty()
