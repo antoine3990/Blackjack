@@ -22,6 +22,11 @@ namespace BlackJack
             log = new List<string>();
             status = statuses.playing;
 
+            giveCards(deck, nbCards);
+        }
+
+        private void giveCards(Cards deck, int nbCards)
+        {
             for (int i = 0; i < nbCards; i++)
                 hit(deck);
         }
@@ -64,12 +69,14 @@ namespace BlackJack
             return newCard;
         }
 
-        public void reset()
+        public void reset(Cards deck, int nbCards)
         {
             score = 0;
             cards.Clear();
             log.Clear();
             status = statuses.playing;
+
+            giveCards(deck, nbCards);
         }
 
         public void stand()
