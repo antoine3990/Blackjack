@@ -419,18 +419,20 @@ namespace BlackJack
                 if (c.Name.StartsWith("PB_card"))
                     Controls["PNL_game"].Controls.Remove(c);
             }
-            Update();
-            Refresh();
 
             showCards();
         }
         public void restart()
         {
-            reset();
             deck = new Cards();
+            reset();
+            
             
             foreach (Player p in players)
                 p.reset(deck, STARTING_CARDS);
+            Update();
+            Refresh();
+            
         }
         public void toMain()
         {
