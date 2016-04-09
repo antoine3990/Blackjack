@@ -417,8 +417,10 @@ namespace BlackJack
             foreach (Control c in Controls["PNL_game"].Controls)
             {
                 if (c.Name.StartsWith("PB_card"))
-                    Controls.Remove(c);
+                    Controls["PNL_game"].Controls.Remove(c);
             }
+            Update();
+            Refresh();
 
             showCards();
         }
