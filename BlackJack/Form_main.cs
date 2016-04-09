@@ -426,10 +426,11 @@ namespace BlackJack
         {
             deck = new Cards();
             reset();
-            setStartingCards();
 
             foreach (Player p in players)
                 p.reset(deck, STARTING_CARDS);
+
+            setStartingCards();
         }
         public void toMain()
         {
