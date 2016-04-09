@@ -391,30 +391,44 @@ namespace BlackJack
 
         public void reset()
         {
-            BT_hit.Show();
-            BT_stand.Show();
-            //BT_pause.Hide();
 
+            bool allAi = true;
+            foreach (Player p in players)
+                if (p is User)
+                    allAi = false;
+
+            if (!allAi)
+            {
+                BT_hit.Show();
+                BT_stand.Show();
+                BT_pause.Hide();
+            }
+            else
+            {
+                BT_hit.Hide();
+                BT_stand.Hide();
+                BT_pause.Show();
+            }
+
+            currentPlayer = 0;
             LB_playerScore.Text = "Score: ";
-            LB_playerName.Text = "";
+            LB_playerName.Text = players[currentPlayer] is AI ? "AI #" + ((AI)players[currentPlayer]).id : ((User)players[currentPlayer]).name;
 
-            for (int i = 1; i <= 52; i++)
-                Controls["PNL_game"].Controls.Remove(Controls["PB_card" + i.ToString()]);
+            foreach (Control c in Controls["PNL_game"].Controls)
+            {
+                if (c.Name.StartsWith("PB_card"))
+                    Controls.Remove(c);
+            }
 
             showCards();
         }
         public void restart()
         {
             reset();
-
             deck = new Cards();
-
-            foreach (Control c in Controls["PNL_game"].Controls)
-                Controls.Remove(c);
+            
             foreach (Player p in players)
-                p.reset();
-            Update();
-            Refresh();
+                p.reset(deck, STARTING_CARDS);
         }
         public void toMain()
         {
