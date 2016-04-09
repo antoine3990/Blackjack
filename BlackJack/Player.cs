@@ -16,13 +16,13 @@ namespace BlackJack
         public statuses status { get; private set; }
         public List<string> log { get; private set; }
 
-        public Player(Cards deck)
+        public Player(Cards deck, int nbCards)
         {
             cards = new List<Card>();
             log = new List<string>();
             status = statuses.playing;
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < nbCards; i++)
                 hit(deck);
         }
 
