@@ -275,7 +275,14 @@ namespace BlackJack
                 else
                     console.showLog(current);
 
-                changePlayer();
+                if (players[currentPlayer == 0 ? 1 : 0] is AI)
+                {
+                    if (getWinner() == 0)
+                    {
+                        changePlayer();
+                        hit();
+                    }
+                }
             }
             else
             {
@@ -349,7 +356,7 @@ namespace BlackJack
                 currentPlayer = currentPlayer == players.Count - 1 ? 0 : currentPlayer + 1;
         }
 
-        private void getWinner()
+        private int getWinner()
         {
             bool endGame = players[0].status == Player.statuses.standing && players[1].status == Player.statuses.standing;
             List<Player> winners = Dealer.getWinner(players[0], players[1], endGame);
@@ -361,6 +368,8 @@ namespace BlackJack
                 else
                     showWinner(null);
             }
+
+            return winners.Count();
         }
         private void showWinner(Player winner)
         {
