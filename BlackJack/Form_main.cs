@@ -278,7 +278,8 @@ namespace BlackJack
                 else
                     console.showLog(current);
 
-                if (players[currentPlayer == 0 ? 1 : 0] is AI)
+                Player opponent = players[currentPlayer == 0 ? 1 : 0];
+                if (opponent is AI || (opponent is User && opponent.status == Player.statuses.standing))
                 {
                     if (getWinner() == 0)
                     {
