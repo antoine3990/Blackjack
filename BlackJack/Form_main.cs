@@ -250,6 +250,18 @@ namespace BlackJack
             Refresh();
         }
 
+        private void updatePlayerLabels()
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                string name = players[i] is AI ? "AI #" + ((AI)players[i]).id.ToString() : ((User)players[i]).name;
+                string status = Enum.GetName(typeof(Player.statuses), players[i].status);
+                status = status.Substring(0, 1).ToUpper() + status.Substring(1);
+
+                Controls["PNL_game"].Controls["LB_details" + (i + 1).ToString()].Text = name + " : " + status;
+            }
+        }
+
         #endregion
 
         #region Player Operations
@@ -362,6 +374,8 @@ namespace BlackJack
             }
             else
                 currentPlayer = currentPlayer == players.Count - 1 ? 0 : currentPlayer + 1;
+
+            updatePlayerLabels();
         }
 
         private int getWinner()
