@@ -78,6 +78,9 @@ namespace BlackJack
             console.Show();
 
             setStartingCards();
+
+            if (players[currentPlayer] is AI)
+                hit();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -197,8 +200,13 @@ namespace BlackJack
 
             console.showLog(current);
 
+            updatePlayerLabels();
+
             changePlayer();
             getWinner();
+
+            if (current is AI)
+                hit();
         }
         private void BT_hit_Click(object sender, EventArgs e)
         {
@@ -320,7 +328,10 @@ namespace BlackJack
 
             updatePlayerLabels();
 
-            getWinner();
+            if (getWinner() == 0)
+                if (players[currentPlayer] is AI)
+                    hit();
+
             BT_hit.Enabled = true;
         }
         private void updateHitCard(int cards, int player, int playerCards)

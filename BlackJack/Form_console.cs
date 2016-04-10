@@ -141,12 +141,14 @@ namespace BlackJack
 
         public void showLog(Player player)
         {
-            appendText(player.getLastLog());
+            if (TB_console.Text.IndexOf("FIN DE LA PARTIE.") == -1)
+                appendText(player.getLastLog());
         }
 
         public void showLog(string text)
         {
-            appendText(text);
+            if (TB_console.Text.IndexOf("FIN DE LA PARTIE.") == -1)
+                appendText(text);
         }
 
         private void TB_command_TextChanged(object sender, EventArgs e)
