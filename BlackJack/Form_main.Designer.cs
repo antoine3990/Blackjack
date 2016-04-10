@@ -47,6 +47,8 @@
             this.CB_player2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.LB_details1 = new System.Windows.Forms.Label();
+            this.LB_details2 = new System.Windows.Forms.Label();
             this.PNL_game.SuspendLayout();
             this.PNL_main.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +57,8 @@
             // 
             this.PNL_game.BackgroundImage = global::BlackJack.Properties.Resources.table;
             this.PNL_game.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PNL_game.Controls.Add(this.LB_details2);
+            this.PNL_game.Controls.Add(this.LB_details1);
             this.PNL_game.Controls.Add(this.LB_playerScore);
             this.PNL_game.Controls.Add(this.LB_playerName);
             this.PNL_game.Controls.Add(this.BT_hit);
@@ -359,6 +363,30 @@
             this.label2.Text = "Joueur 1";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // LB_details1
+            // 
+            this.LB_details1.BackColor = System.Drawing.Color.Transparent;
+            this.LB_details1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_details1.ForeColor = System.Drawing.Color.White;
+            this.LB_details1.Location = new System.Drawing.Point(230, 297);
+            this.LB_details1.Name = "LB_details1";
+            this.LB_details1.Size = new System.Drawing.Size(260, 23);
+            this.LB_details1.TabIndex = 5;
+            this.LB_details1.Text = "Player_Name : Player_Status";
+            this.LB_details1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LB_details2
+            // 
+            this.LB_details2.BackColor = System.Drawing.Color.Transparent;
+            this.LB_details2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_details2.ForeColor = System.Drawing.Color.White;
+            this.LB_details2.Location = new System.Drawing.Point(722, 297);
+            this.LB_details2.Name = "LB_details2";
+            this.LB_details2.Size = new System.Drawing.Size(260, 23);
+            this.LB_details2.TabIndex = 6;
+            this.LB_details2.Text = "Player_Name : Player_Status";
+            this.LB_details2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -398,6 +426,8 @@
         private System.Windows.Forms.Label LB_playerName;
         private System.Windows.Forms.Label LB_playerScore;
         private System.Windows.Forms.Button BT_pause;
+        private System.Windows.Forms.Label LB_details2;
+        private System.Windows.Forms.Label LB_details1;
     }
 }
 

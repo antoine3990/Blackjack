@@ -206,6 +206,7 @@ namespace BlackJack
         }
         private void BT_pause_Click(object sender, EventArgs e)
         {
+            BT_pause.Text = BT_pause.Text == "Start" ? "Pause" : "Start";
             hit();
         }
 
