@@ -54,16 +54,16 @@ namespace BlackJack
                 score += newCard.rank > 10 ? 10 : newCard.rank;
 
                 // Si le joueur possède un as compté à 11 points, réduire cet as à 1 point.
-                if (getAs() > 0 && getAs() > asReduced && score > 21)
+                if (getAs() > 0 && getAs() > asReduced && score > Program.POINTS_TO_WIN)
                 {
                     score -= 10;
                     asReduced++;
                 }
             }
 
-            if (score == 21)
+            if (score == Program.POINTS_TO_WIN)
                 status = statuses.standing;
-            else if (score > 21)
+            else if (score > Program.POINTS_TO_WIN)
                 status = statuses.busting;
 
             return newCard;

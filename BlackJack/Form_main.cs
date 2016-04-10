@@ -282,6 +282,8 @@ namespace BlackJack
                         changePlayer();
                         hit();
                     }
+                    else
+                        return;
                 }
             }
             else

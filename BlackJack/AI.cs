@@ -39,16 +39,16 @@ namespace BlackJack
                 addToLog("Standing.");
                 return false;
             }
-            else if (opponent.score == 21)
+            else if (opponent.score == Program.POINTS_TO_WIN)
             {
-                addToLog("Hitting. L'adversaire a un score de 21.");
+                addToLog("Hitting. L'adversaire a un score de " + Program.POINTS_TO_WIN + ".");
                 return true;
             }
-            else if (this.score <= 11)
-            {
-                addToLog("Hitting. Score moins élevé que 12.");
-                return true;
-            }
+            //else if (this.score <= Program.POINTS_TO_WIN - 10)
+            //{
+            //    addToLog("Hitting. Score moins élevé que " + (Program.POINTS_TO_WIN - 10).ToString() + ".");
+            //    return true;
+            //}
             else if (this.score < opponent.score && opponent.status == statuses.standing)
             {
                 addToLog("Hitting. Score moins élevé que l'adversaire qui est en état 'Standing'.");
@@ -76,7 +76,7 @@ namespace BlackJack
                 deck = originalDeck.toList().Select(card => new Card(card.suit, card.rank)).ToList();
 
             foreach (Card card in deck)
-                if (this.score + (card.rank > 10 ? 10 : card.rank) <= 21)
+                if (this.score + (card.rank > 10 ? 10 : card.rank) <= Program.POINTS_TO_WIN)
                     notBusting.Add(card);
 
             int goodCards = notBusting.Count;
