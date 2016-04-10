@@ -18,6 +18,7 @@ namespace BlackJack
 
         private void showLogs()
         {
+            appendText("Tappez /help pour afficher les commandes disponibles.");
             appendText("Début de la partie.");
 
             for (int i = 0; i < game.players[0].log.Count; i++)
@@ -73,9 +74,6 @@ namespace BlackJack
                     game.pause();
                     appendText("PAUSE");
                     break;
-                case "undo":
-                    undoAction();
-                    break;
                 case "cl_righthand":
                     game.cardsRotated = game.cardsRotated ? false : true;
                     game.resizeCards();
@@ -103,11 +101,6 @@ namespace BlackJack
             appendText("CLEAR" + "                      " + "Efface le contenu de la console");
             appendText("PAUSE" + "                      " + "Pause la partie en cours");
             appendText("QUIT" + "                          " + "Ferme l'application");
-        }
-
-        private void undoAction()
-        {
-
         }
 
         private void showInfo()

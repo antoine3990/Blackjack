@@ -11,14 +11,7 @@ namespace BlackJack
         public enum riskLevel { brave=50, standard=65, prudent=80 }
         
         private riskLevel behavior;
-        public riskLevel Behavior
-        {
-            get { return behavior; }
-            set
-            {
-                behavior = value;
-            }
-        }
+        public riskLevel Behavior { get; set; }
 
         private int lowestChanceOfHit { get; set; }
         public bool countingCard { get; set; }

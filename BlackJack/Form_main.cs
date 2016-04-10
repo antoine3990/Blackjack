@@ -19,6 +19,7 @@ namespace BlackJack
 
         private int currentPlayer = -1;
         private const int STARTING_CARDS = 1;
+        private bool winnerShowed = false;
 
         public Form_main()
         {
@@ -29,8 +30,7 @@ namespace BlackJack
             showCards();
             BT_pause.Text = "Start";
 
-            //console = new Form_console(this);
-            //console.ShowDialog();
+            setButtons();
         }
 
         #region Player selection
@@ -78,9 +78,6 @@ namespace BlackJack
             console.Show();
 
             setStartingCards();
-
-            if (players[currentPlayer] is AI)
-                hit();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -270,6 +267,29 @@ namespace BlackJack
             }
         }
 
+        private void setButtons()
+        {
+            BT_pause.Text = "Start";
+
+            bool allAi = true;
+            foreach (Player p in players)
+                if (p is User)
+                    allAi = false;
+
+            if (!allAi)
+            {
+                BT_hit.Show();
+                BT_stand.Show();
+                BT_pause.Hide();
+            }
+            else
+            {
+                BT_hit.Hide();
+                BT_stand.Hide();
+                BT_pause.Show();
+            }
+        }
+
         #endregion
 
         #region Player Operations
@@ -329,8 +349,12 @@ namespace BlackJack
             updatePlayerLabels();
 
             if (getWinner() == 0)
+            {
                 if (players[currentPlayer] is AI)
                     hit();
+            }
+            else
+                return;
 
             BT_hit.Enabled = true;
         }
@@ -400,7 +424,7 @@ namespace BlackJack
 
             if (winners.Count > 0)
             {
-                if (winners.Count == 1)
+                if (winners.Count == 1 && !winnerShowed)
                     showWinner(winners[0]);
                 else
                     showWinner(null);
@@ -410,31 +434,41 @@ namespace BlackJack
         }
         private void showWinner(Player winner)
         {
-            string endText = "FIN DE LA PARTIE. {0}.";
-            if (winner == null)
+            if (!winnerShowed)
             {
-                endText = String.Format(endText, "La partie est nulle");
-            }
-            else
-            {
-                string name = (winner is AI ? "AI #" + ((AI)winner).id : ((User)winner).name).ToUpper();
-                string winnerText = "Le gagnant est {0} avec un score de {1} (vs {2})";
-                string opponentScore = (winner == players[0] ? players[1].score : players[0].score).ToString();
+                winnerShowed = true;
 
-                endText = String.Format(endText, String.Format(winnerText, name, winner.score, opponentScore));
-
-                PNL_victory.Show();
-                PNL_victory.BringToFront();
-
+                string endText = "FIN DE LA PARTIE. {0}.";
                 if (winner == null)
-                    LB_winner.Text = "Partie nulle. Score = " + players[0].score + ".";
+                    endText = String.Format(endText, "La partie est nulle");
                 else
-                    LB_winner.Text = endText.Substring(endText.IndexOf(".") + 1);
+                {
+                    string name = (winner is AI ? "AI #" + ((AI)winner).id : ((User)winner).name).ToUpper();
+                    string winnerText = "Le gagnant est {0} avec un score de {1} (vs {2})";
+                    string opponentScore = (winner == players[0] ? players[1].score : players[0].score).ToString();
 
-                Update();
+                    endText = String.Format(endText, String.Format(winnerText, name, winner.score, opponentScore));
+
+                    PNL_victory.Show();
+                    PNL_victory.BringToFront();
+
+                    for (int i = 1; i <= 52; i++)
+                    {
+                        Control c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0];
+                        if (c.Tag.ToString().StartsWith("player"))
+                            c.BringToFront();
+                    }
+
+                    for (int i = 1; i <= players.Count; i++)
+                        Controls["PNL_game"].Controls["LB_details" + i.ToString()].BringToFront();
+
+                    Update();
+                }
+
+                LB_winner.Text = endText.Substring(endText.IndexOf(".") + 1);
+
+                console.showLog(endText);
             }
-
-            console.showLog(endText);
         }
 
         #endregion
@@ -443,23 +477,8 @@ namespace BlackJack
 
         public void reset()
         {
-            bool allAi = true;
-            foreach (Player p in players)
-                if (p is User)
-                    allAi = false;
-
-            if (!allAi)
-            {
-                BT_hit.Show();
-                BT_stand.Show();
-                BT_pause.Hide();
-            }
-            else
-            {
-                BT_hit.Hide();
-                BT_stand.Hide();
-                BT_pause.Show();
-            }
+            winnerShowed = false;
+            setButtons();
 
             currentPlayer = 0;
             LB_playerScore.Text = "Score: ";
@@ -483,6 +502,24 @@ namespace BlackJack
                 p.reset(deck, STARTING_CARDS);
 
             setStartingCards();
+
+            Form toClose = null;
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.Name == "Form_console")
+                {
+                    toClose = form;
+                    break;
+                }
+            }
+
+            if (toClose != null)
+                toClose.Close();
+
+            console = new Form_console(this);
+            console.Show();
+
+            updatePlayerLabels();
         }
         public void toMain()
         {
