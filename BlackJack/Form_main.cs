@@ -64,6 +64,9 @@ namespace BlackJack
                     addUser(i);
                 else
                     addAI(i);
+
+                if (players.Count < i)
+                    return;
             }
 
             PNL_game.Show();
