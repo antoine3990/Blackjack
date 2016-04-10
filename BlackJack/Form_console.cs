@@ -70,10 +70,6 @@ namespace BlackJack
                 case "quit":
                     Application.Exit();
                     break;
-                case "pause":
-                    game.pause();
-                    appendText("PAUSE");
-                    break;
                 case "cl_righthand":
                     game.cardsRotated = game.cardsRotated ? false : true;
                     game.resizeCards();
@@ -99,7 +95,6 @@ namespace BlackJack
             appendText("MAINMENU" + "             " + "Réinitialise la partie et retourne au menu principal");
             appendText("CL_RIGHTHAND" + "    " + "???");
             appendText("CLEAR" + "                      " + "Efface le contenu de la console");
-            appendText("PAUSE" + "                      " + "Pause la partie en cours");
             appendText("QUIT" + "                          " + "Ferme l'application");
         }
 

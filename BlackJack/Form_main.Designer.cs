@@ -102,7 +102,7 @@
             this.BT_toMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_toMain.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_toMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.BT_toMain.Location = new System.Drawing.Point(324, 586);
+            this.BT_toMain.Location = new System.Drawing.Point(324, 606);
             this.BT_toMain.Name = "BT_toMain";
             this.BT_toMain.Size = new System.Drawing.Size(285, 103);
             this.BT_toMain.TabIndex = 3;
@@ -120,7 +120,7 @@
             this.BT_restart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_restart.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_restart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.BT_restart.Location = new System.Drawing.Point(641, 586);
+            this.BT_restart.Location = new System.Drawing.Point(641, 606);
             this.BT_restart.Name = "BT_restart";
             this.BT_restart.Size = new System.Drawing.Size(285, 103);
             this.BT_restart.TabIndex = 2;
@@ -250,7 +250,7 @@
             this.BT_pause.Name = "BT_pause";
             this.BT_pause.Size = new System.Drawing.Size(380, 131);
             this.BT_pause.TabIndex = 4;
-            this.BT_pause.Text = "Pause";
+            this.BT_pause.Text = "Start";
             this.BT_pause.UseVisualStyleBackColor = false;
             this.BT_pause.Visible = false;
             this.BT_pause.Click += new System.EventHandler(this.BT_pause_Click);

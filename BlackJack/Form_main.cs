@@ -28,7 +28,6 @@ namespace BlackJack
             InitializeComponent();
             initComboBoxDifficulty();
             showCards();
-            BT_pause.Text = "Start";
 
             setButtons();
         }
@@ -211,7 +210,7 @@ namespace BlackJack
         }
         private void BT_pause_Click(object sender, EventArgs e)
         {
-            BT_pause.Text = BT_pause.Text == "Start" ? "Pause" : "Start";
+            BT_pause.Visible = !BT_pause.Visible;
             hit();
         }
 
@@ -448,22 +447,22 @@ namespace BlackJack
                     string opponentScore = (winner == players[0] ? players[1].score : players[0].score).ToString();
 
                     endText = String.Format(endText, String.Format(winnerText, name, winner.score, opponentScore));
-
-                    PNL_victory.Show();
-                    PNL_victory.BringToFront();
-
-                    for (int i = 1; i <= 52; i++)
-                    {
-                        Control c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0];
-                        if (c.Tag.ToString().StartsWith("player"))
-                            c.BringToFront();
-                    }
-
-                    for (int i = 1; i <= players.Count; i++)
-                        Controls["PNL_game"].Controls["LB_details" + i.ToString()].BringToFront();
-
-                    Update();
                 }
+
+                PNL_victory.Show();
+                PNL_victory.BringToFront();
+
+                for (int i = 1; i <= 52; i++)
+                {
+                    Control c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0];
+                    if (c.Tag.ToString().StartsWith("player"))
+                        c.BringToFront();
+                }
+
+                for (int i = 1; i <= players.Count; i++)
+                    Controls["PNL_game"].Controls["LB_details" + i.ToString()].BringToFront();
+
+                Update();
 
                 LB_winner.Text = endText.Substring(endText.IndexOf(".") + 1);
 
@@ -520,6 +519,8 @@ namespace BlackJack
             console.Show();
 
             updatePlayerLabels();
+
+            BT_pause.Visible = true;
         }
         public void toMain()
         {
@@ -535,10 +536,6 @@ namespace BlackJack
 
             PNL_main.Show();
             PNL_main.BringToFront();
-        }
-        public void pause()
-        {
-
         }
 
         #endregion

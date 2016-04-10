@@ -48,3 +48,4 @@ C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJ
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\bin\Debug\BlackJack.pdb
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.exe
 C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\zskyl\Dropbox\Exercices\_Session 4\Maths\TP3\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
