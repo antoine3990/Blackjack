@@ -44,11 +44,11 @@ namespace BlackJack
                 addToLog("Hitting. L'adversaire a un score de " + Program.POINTS_TO_WIN + ".");
                 return true;
             }
-            //else if (this.score <= Program.POINTS_TO_WIN - 10)
-            //{
-            //    addToLog("Hitting. Score moins élevé que " + (Program.POINTS_TO_WIN - 10).ToString() + ".");
-            //    return true;
-            //}
+            else if (this.score <= Program.POINTS_TO_WIN - 10)
+            {
+                addToLog("Hitting. Score moins élevé que " + (Program.POINTS_TO_WIN - 10).ToString() + ".");
+                return true;
+            }
             else if (this.score < opponent.score && opponent.status == statuses.standing)
             {
                 addToLog("Hitting. Score moins élevé que l'adversaire qui est en état 'Standing'.");
@@ -60,7 +60,6 @@ namespace BlackJack
             else
             {
                 stand();
-                addToLog("Standing.");
                 return false;
             }
         }
@@ -92,7 +91,8 @@ namespace BlackJack
         {
             string status = "Standing";
             string sign = "<";
-            string logText = "{0}. " + goodCards.ToString() + "/" + totalCards.ToString() + "(" + chanceToWin.ToString() + "%) {1} " + lowestChanceOfHit.ToString() + "%.";
+            string logText = "{0}. " + goodCards.ToString() + "/" + totalCards.ToString() + "(" + chanceToWin.ToString() + "%) {1} " + lowestChanceOfHit.ToString() + "%. {2}";
+            bool showScore = true;
 
             if (chanceToWin >= lowestChanceOfHit)
             {
@@ -101,9 +101,11 @@ namespace BlackJack
                     sign = ">";
                 else
                     sign = "=";
+
+                showScore = false;
             }
 
-            return String.Format(logText, status, sign);
+            return String.Format(logText, status, sign, showScore ? "Score = " + score.ToString() + "." : "");
         }
 
         public void addToLog(string text)
