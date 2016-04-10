@@ -27,6 +27,7 @@ namespace BlackJack
             InitializeComponent();
             initComboBoxDifficulty();
             showCards();
+            BT_pause.Text = "Start";
 
             //console = new Form_console(this);
             //console.ShowDialog();
