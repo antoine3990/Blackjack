@@ -292,6 +292,8 @@ namespace BlackJack
                 else
                     console.showLog(current);
 
+                updatePlayerLabels();
+
                 Player opponent = players[currentPlayer == 0 ? 1 : 0];
                 if (opponent is AI || (opponent is User && opponent.status == Player.statuses.standing))
                 {
@@ -315,6 +317,8 @@ namespace BlackJack
 
             LB_playerScore.Text = "Score: " + current.score.ToString();
             changePlayer();
+
+            updatePlayerLabels();
 
             getWinner();
             BT_hit.Enabled = true;
