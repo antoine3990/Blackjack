@@ -97,7 +97,6 @@ namespace BlackJack
         {
             appendText("HELP" + "                         " + "Affiche la fenêtre d'aide ci-contre");
             appendText("INFO" + "                          " + "Affiche les informations des joueurs");
-            appendText("UNDO" + "                       " + "Annule le tour du dernier joueur");
             appendText("RESTART" + "                 " + "Réinitialise la partie");
             appendText("MAINMENU" + "             " + "Réinitialise la partie et retourne au menu principal");
             appendText("CL_RIGHTHAND" + "    " + "???");

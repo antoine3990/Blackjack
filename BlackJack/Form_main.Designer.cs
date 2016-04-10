@@ -49,8 +49,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.LB_details1 = new System.Windows.Forms.Label();
             this.LB_details2 = new System.Windows.Forms.Label();
+            this.PNL_victory = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.LB_winner = new System.Windows.Forms.Label();
+            this.BT_restart = new System.Windows.Forms.Button();
+            this.BT_toMain = new System.Windows.Forms.Button();
             this.PNL_game.SuspendLayout();
             this.PNL_main.SuspendLayout();
+            this.PNL_victory.SuspendLayout();
             this.SuspendLayout();
             // 
             // PNL_game
@@ -387,11 +393,81 @@
             this.LB_details2.Text = "Player_Name : Player_Status";
             this.LB_details2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // PNL_victory
+            // 
+            this.PNL_victory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.PNL_victory.Controls.Add(this.BT_toMain);
+            this.PNL_victory.Controls.Add(this.BT_restart);
+            this.PNL_victory.Controls.Add(this.LB_winner);
+            this.PNL_victory.Controls.Add(this.label3);
+            this.PNL_victory.Location = new System.Drawing.Point(0, 0);
+            this.PNL_victory.Name = "PNL_victory";
+            this.PNL_victory.Size = new System.Drawing.Size(1277, 774);
+            this.PNL_victory.TabIndex = 2;
+            this.PNL_victory.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Calibri Light", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.label3.Location = new System.Drawing.Point(0, 259);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(1274, 125);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Fin de la partie!";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LB_winner
+            // 
+            this.LB_winner.Font = new System.Drawing.Font("Calibri Light", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_winner.ForeColor = System.Drawing.Color.White;
+            this.LB_winner.Location = new System.Drawing.Point(0, 384);
+            this.LB_winner.Name = "LB_winner";
+            this.LB_winner.Size = new System.Drawing.Size(1277, 50);
+            this.LB_winner.TabIndex = 1;
+            this.LB_winner.Text = "Le gagnant est {0}, avec un score de {1}.";
+            this.LB_winner.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BT_restart
+            // 
+            this.BT_restart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BT_restart.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.BT_restart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.BT_restart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.BT_restart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_restart.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_restart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.BT_restart.Location = new System.Drawing.Point(661, 572);
+            this.BT_restart.Name = "BT_restart";
+            this.BT_restart.Size = new System.Drawing.Size(285, 103);
+            this.BT_restart.TabIndex = 2;
+            this.BT_restart.Text = "Rejouer";
+            this.BT_restart.UseVisualStyleBackColor = true;
+            this.BT_restart.Click += new System.EventHandler(this.BT_restart_Click);
+            // 
+            // BT_toMain
+            // 
+            this.BT_toMain.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BT_toMain.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.BT_toMain.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.BT_toMain.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.BT_toMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_toMain.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BT_toMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.BT_toMain.Location = new System.Drawing.Point(344, 572);
+            this.BT_toMain.Name = "BT_toMain";
+            this.BT_toMain.Size = new System.Drawing.Size(285, 103);
+            this.BT_toMain.TabIndex = 3;
+            this.BT_toMain.Text = "Menu principal";
+            this.BT_toMain.UseVisualStyleBackColor = true;
+            this.BT_toMain.Click += new System.EventHandler(this.BT_toMain_Click);
+            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1276, 773);
+            this.Controls.Add(this.PNL_victory);
             this.Controls.Add(this.PNL_game);
             this.Controls.Add(this.PNL_main);
             this.MaximumSize = new System.Drawing.Size(1400, 858);
@@ -401,6 +477,7 @@
             this.PNL_game.ResumeLayout(false);
             this.PNL_main.ResumeLayout(false);
             this.PNL_main.PerformLayout();
+            this.PNL_victory.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -428,6 +505,11 @@
         private System.Windows.Forms.Button BT_pause;
         private System.Windows.Forms.Label LB_details2;
         private System.Windows.Forms.Label LB_details1;
+        private System.Windows.Forms.Panel PNL_victory;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label LB_winner;
+        private System.Windows.Forms.Button BT_restart;
+        private System.Windows.Forms.Button BT_toMain;
     }
 }
 

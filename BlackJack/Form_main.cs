@@ -423,7 +423,15 @@ namespace BlackJack
 
                 endText = String.Format(endText, String.Format(winnerText, name, winner.score, opponentScore));
 
-                // Afficher le gagnant + bouton pour retourner au menu principal
+                PNL_victory.Show();
+                PNL_victory.BringToFront();
+
+                if (winner == null)
+                    LB_winner.Text = "Partie nulle. Score = " + players[0].score + ".";
+                else
+                    LB_winner.Text = endText.Substring(endText.IndexOf(".") + 1);
+
+                Update();
             }
 
             console.showLog(endText);
@@ -435,7 +443,6 @@ namespace BlackJack
 
         public void reset()
         {
-
             bool allAi = true;
             foreach (Player p in players)
                 if (p is User)
@@ -458,18 +465,19 @@ namespace BlackJack
             LB_playerScore.Text = "Score: ";
             LB_playerName.Text = players[currentPlayer] is AI ? "AI #" + ((AI)players[currentPlayer]).id : ((User)players[currentPlayer]).name;
 
+            PNL_victory.Hide();
+
             for (int i = 1; i <= 52; i++)
                 Controls["PNL_game"].Controls.Remove(Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0]);
             
             Update();
             Refresh();
-
-            showCards();
         }
         public void restart()
         {
             deck = new Cards();
             reset();
+            showCards();
 
             foreach (Player p in players)
                 p.reset(deck, STARTING_CARDS);
@@ -497,5 +505,15 @@ namespace BlackJack
         }
 
         #endregion
+
+        private void BT_restart_Click(object sender, EventArgs e)
+        {
+            restart();
+        }
+
+        private void BT_toMain_Click(object sender, EventArgs e)
+        {
+            toMain();
+        }
     }
 }
