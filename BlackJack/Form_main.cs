@@ -205,7 +205,7 @@ namespace BlackJack
         }
         private void BT_pause_Click(object sender, EventArgs e)
         {
-            pause();
+            hit();
         }
 
         private void showCards()
