@@ -8,7 +8,7 @@ namespace BlackJack
 {
     static class Program
     {
-        public static int POINTS_TO_WIN = 40;
+        public static int POINTS_TO_WIN = 21;
 
         /// <summary>
         /// The main entry point for the application.
