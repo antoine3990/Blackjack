@@ -17,7 +17,7 @@ namespace BlackJack
         {
             Random rng = new Random();
             int n = list.Count;
-            while (n > 1)
+            while (n > 1)   //Brassage des cartes
             {
                 n--;
                 int k = rng.Next(n + 1);
@@ -31,13 +31,13 @@ namespace BlackJack
         {
             List<Player> winner = new List<Player>();
 
-            if (player1.status == Player.statuses.busting)
+            if (player1.status == Player.statuses.busting)  //Comparaison des 2 joueurs pour savoir si le premier a depasser 21
                 winner.Add(player2);
-            else if (player2.status == Player.statuses.busting)
+            else if (player2.status == Player.statuses.busting) //Idem sauf pour le joueur 2
                 winner.Add(player1);
             else if (endGame)
             {
-                if (player1.score == player2.score)
+                if (player1.score == player2.score) //Comparaison des scores des 2 joueurs
                     winner.AddRange(new List<Player> { player1, player2 });
                 else
                     winner.Add(player1.score > player2.score ? player1 : player2);
