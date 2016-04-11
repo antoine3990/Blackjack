@@ -188,22 +188,18 @@ namespace BlackJack
         
         private void BT_stand_Click(object sender, EventArgs e)
         {
-            Player current = players[currentPlayer];
-            current.stand();
+            Player current = players[currentPlayer]; // joueur courant
+            current.stand(); // Stand
+            
+            ((User)current).addToLog("Standing."); // Ajouter un texte à la console
+            console.showLog(current); // Afficher dans la console
+            
+            updatePlayerLabels(); // Update le label d'informations des joueurs 
+            
+            changePlayer(); // Changer de joueur
+            getWinner(); // Afficher le gagnant, s'il y en a.
 
-            if (current is AI)
-                ((AI)current).addToLog("Standing.");
-            else
-                ((User)current).addToLog("Standing.");
-
-            console.showLog(current);
-
-            updatePlayerLabels();
-
-            changePlayer();
-            getWinner();
-
-            if (current is AI)
+            if (players[currentPlayer] is AI)
                 hit();
         }
         private void BT_hit_Click(object sender, EventArgs e)
