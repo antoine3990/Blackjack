@@ -81,15 +81,8 @@ namespace BlackJack
             setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
             setButtons(); // Afficher les boutons de jeu
 
-            // Vérifie si tout les joueurs sont des Humain
-            bool allAI = true;
-            foreach (Player p in players)
-                if (p is User)
-                    allAI = false;
-
-            // S'il y a au moins un AI et que c'est le premier joueur, il hit.
-            if (!allAI && players[0] is AI)
-                hit();
+            // Faire jouer le premier joueur si c'est un AI
+            playFirstAI();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -438,6 +431,19 @@ namespace BlackJack
             }
         }
 
+        private void playFirstAI()
+        {
+            // Vérifie si tout les joueurs sont des Humain
+            bool allAI = true;
+            foreach (Player p in players)
+                if (p is User)
+                    allAI = false;
+
+            // S'il y a au moins un AI et que c'est le premier joueur, il hit.
+            if (!allAI && players[0] is AI)
+                hit();
+        }
+
         private int getWinner()
         {
             bool endGame = players[0].status == Player.statuses.standing && players[1].status == Player.statuses.standing;
@@ -544,6 +550,9 @@ namespace BlackJack
             updatePlayerLabels();
 
             setButtons();
+
+            // Faire jouer le premier joueur si c'est un AI
+            playFirstAI();
         }
         public void toMain()
         {
