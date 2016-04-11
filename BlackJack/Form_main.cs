@@ -145,49 +145,57 @@ namespace BlackJack
                 string riskName = Enum.GetName(typeof(AI.riskLevel), risk); 
                 riskName = riskName.Substring(0, 1).ToUpper() + riskName.Substring(1);
 
-
+                // Ajouter le nom de la difficulté comme choix
                 for (int i = 1; i <= 2; i++)
                     ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + i.ToString()]).Items.Add(riskName);
             }
 
+            // La valeur par défaut est 'prudent'
             for (int i = 1; i <= 2; i++)
-                ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + i.ToString()]).SelectedIndex = 0;
+                ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + i.ToString()]).SelectedIndex = Enum.GetValues(typeof(AI.riskLevel)).Length - 1;
         }
         private void showLabelCardCounter()
         {
-            bool oneAI = false;
+            // Trouve s'il y a au moins un joueur en jeu
+            bool oneAI = false; 
             for (int i = 1; i <= 2; i++)
             {
+                // Si la valeur sélectionnée du combobox d'un joueur est AI 
                 if (((ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()]).SelectedIndex == 1)
-                    oneAI = true;
+                    oneAI = true; // Il y a un AI
             }
-            LB_cardCounter.Visible = oneAI;
+            LB_cardCounter.Visible = oneAI; // S'il y en a un, afficher le label de 'Compter les cartes'
         }
 
         private bool playersAreSelected()
         {
-            // Vérifier si deux joueurs(types) ont été sélectionnés.
+            // Vérifie si deux joueurs(types) ont été sélectionnés.
             for (int i = 1; i <= 2; i++)
             {
                 ComboBox CB = (ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()];
+
+                // Si un des deux types de joueurs n'a pas été sélectionné, afficher un message d'erreur.
                 if (CB.SelectedIndex != 0 && CB.SelectedIndex != 1)
                 {
                     MessageBox.Show("Veuillez sélectionner un joueur #" + i.ToString() + ".");
-                    return false;
+                    return false; // Les deux joueurs n'ont pas été sélectionnés
                 }
             }
 
-            return true;
+            return true; // Les deux joueurs ont été sélectionnés
         }
         private void resetAiSettings(string numPlayer)
         {
+            // Cacher le combobox de difficultés d'un AI
             Controls["PNL_main"].Controls["CB_difficulty" + numPlayer].Hide();
 
             Control BT_cardCounter = Controls["PNL_main"].Controls["BT_cardCounter" + numPlayer];
-            BT_cardCounter.Hide();
+            BT_cardCounter.Hide(); // Cacher le bouton 'Compter les cartes'
 
-            ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + numPlayer]).SelectedIndex = 0;
+            // Réinitialiser la difficulté par défaut à 'prudent'
+            ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + numPlayer]).SelectedIndex = Enum.GetValues(typeof(AI.riskLevel)).Length - 1;
 
+            // Réinitialiser le bouton 'Compter les cartes' à non
             if (BT_cardCounter.Tag.ToString() == "yes")
                 BT_cardCounter_Click(BT_cardCounter, new EventArgs());
         }
@@ -215,21 +223,22 @@ namespace BlackJack
         }
         private void BT_hit_Click(object sender, EventArgs e)
         {
-            hit();
+            hit(); // Hit
         }
         private void BT_pause_Click(object sender, EventArgs e)
         {
+            // Si le bouton pause est visible, le cacher. Vice-versa.
             BT_pause.Visible = !BT_pause.Visible;
-            hit();
+            hit(); // Hit
         }
 
         private void BT_restart_Click(object sender, EventArgs e)
         {
-            restart();
+            restart(); // Redémarrer
         }
         private void BT_toMain_Click(object sender, EventArgs e)
         {
-            toMain();
+            toMain(); // Retourner au menu principal
         }
 
         private void setButtons()
