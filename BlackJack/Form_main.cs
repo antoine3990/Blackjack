@@ -79,6 +79,14 @@ namespace BlackJack
 
             setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
             setButtons(); // Afficher les boutons de jeu
+
+            bool allUser = true;
+            foreach (Player p in players)
+                if (p is AI)
+                    allUser = false;
+
+            if (!allUser && players[0] is AI)
+                hit();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
