@@ -8,7 +8,7 @@ namespace BlackJack
 {
     public class AI : Player
     {
-        public enum riskLevel { brave=50, standard=65, prudent=80 }
+        public enum riskLevel { brave=50, standard=65, prudent=80 } //Le taux de pourcentage des AI
         
         private riskLevel behavior;
         public riskLevel Behavior { get; set; }
@@ -27,6 +27,7 @@ namespace BlackJack
 
         public bool play(Player opponent, Cards deck)
         {
+            //Mets a jour la console tout dependant ce que le AI fait
             if (this.status == statuses.standing)
             {
                 addToLog("Standing.");
@@ -63,17 +64,17 @@ namespace BlackJack
             List<Card> notBusting = new List<Card>();
             
             if (!countingCard)
-                deck = new Cards().toList();
+                deck = new Cards().toList();    //Mets tous les cartes dans une liste
             else
-                deck = originalDeck.toList().Select(card => new Card(card.suit, card.rank)).ToList();
+                deck = originalDeck.toList().Select(card => new Card(card.suit, card.rank)).ToList();   //Compte les cartes joues si le AI compte les cartes
 
             foreach (Card card in deck)
-                if (this.score + (card.rank > 10 ? 10 : card.rank) <= Program.POINTS_TO_WIN)
+                if (this.score + (card.rank > 10 ? 10 : card.rank) <= Program.POINTS_TO_WIN)    //Calcule les cartes qui peuvent pas le faire depasser 21
                     notBusting.Add(card);
 
             int goodCards = notBusting.Count;
             int totalCards = deck.Count;
-            decimal chanceToWin = Math.Round(Decimal.Divide(goodCards, totalCards) * 100, 2);
+            decimal chanceToWin = Math.Round(Decimal.Divide(goodCards, totalCards) * 100, 2);   //Calcul du taux de propabilites
             
             addToLog(defineLogText(goodCards, totalCards, chanceToWin));
 
@@ -82,6 +83,7 @@ namespace BlackJack
         
         public string defineLogText(int goodCards, int totalCards, decimal chanceToWin)
         {
+            //Affiche a la console le tour de AI lorsqu'il demande une carte
             string status = "Standing";
             string sign = "<";
             string logText = "{0}. " + goodCards.ToString() + "/" + totalCards.ToString() + "(" + chanceToWin.ToString() + "%) {1} " + lowestChanceOfHit.ToString() + "%. {2}";

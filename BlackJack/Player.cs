@@ -12,7 +12,7 @@ namespace BlackJack
         public int score { get; private set; }
         private int asReduced = 0; // Nombre d'As dont le score a été réduit de 11 à 1.
 
-        public enum statuses { playing, standing, busting, paused }
+        public enum statuses { playing, standing, busting, paused } //Status possible pour les joueurs
         public statuses status { get; private set; }
         public List<string> log { get; private set; }
 
@@ -61,9 +61,9 @@ namespace BlackJack
                 }
             }
 
-            if (score == Program.POINTS_TO_WIN)
+            if (score == Program.POINTS_TO_WIN) //Modifie le status si le joueur/AI atteint 21
                 status = statuses.standing;
-            else if (score > Program.POINTS_TO_WIN)
+            else if (score > Program.POINTS_TO_WIN) //Modifie le status si le joueur/AI depasse 21
                 status = statuses.busting;
 
             return newCard;
@@ -72,16 +72,16 @@ namespace BlackJack
         public void reset(Cards deck, int nbCards)
         {
             score = 0;
-            cards.Clear();
-            log.Clear();
-            status = statuses.playing;
+            cards.Clear();  //Vide la lsite de carte donnee
+            log.Clear();    //Vide la console
+            status = statuses.playing;  //Mets le status des joueurs a jour
 
-            giveCards(deck, nbCards);
+            giveCards(deck, nbCards);   //Distribue les cartes
         }
 
         public void stand()
         {
-            status = statuses.standing;
+            status = statuses.standing; //Affect le status au joueur
         }
 
         public string getLastLog()
@@ -96,7 +96,7 @@ namespace BlackJack
         {
             int count = 0;
 
-            foreach (Card c in cards)
+            foreach (Card c in cards)   //Retourne le nombre d'As
                 if (c.rank == 1)
                     count++;
 
