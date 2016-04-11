@@ -494,57 +494,67 @@ namespace BlackJack
 
         private int getWinner()
         {
-            bool endGame = players[0].status == Player.statuses.standing && players[1].status == Player.statuses.standing;
-            List<Player> winners = Dealer.getWinner(players[0], players[1], endGame);
+            // Détermine s'il y a un gagnant à la partie
+            // Les deux joueurs 'Stand', c'est la fin de la partie
+            bool endGame = players[0].status == Player.statuses.standing && players[1].status == Player.statuses.standing; 
+            List<Player> winners = Dealer.getWinner(players[0], players[1], endGame); // Liste des gagnants
 
+            // S'il y a au moins un gagnant
             if (winners.Count > 0)
             {
+                // s'il n'y a qu'un seul gagnant
                 if (winners.Count == 1 && !winnerShowed)
-                    showWinner(winners[0]);
+                    showWinner(winners[0]); // Afficher ce gagnant
                 else
-                    showWinner(null);
+                    showWinner(null); // Afficher une partie nulle
             }
 
-            return winners.Count();
+            return winners.Count(); // Retourner le nombre de gagnant (0|1|2)
         }
         private void showWinner(Player winner)
         {
+            // S'il n'y a pas déja eu un gagnant d'affiché
             if (!winnerShowed)
             {
-                winnerShowed = true;
+                winnerShowed = true; // Un gagnant a été affiché
 
-                string endText = "FIN DE LA PARTIE. {0}.";
+                string endText = "FIN DE LA PARTIE. {0}."; // Texte final a formater
+
+                // S'il n'y a aucun gagnant
                 if (winner == null)
-                    endText = String.Format(endText, "La partie est nulle");
+                    endText = String.Format(endText, "La partie est nulle"); // C'est une partie nulle
                 else
                 {
-                    string name = (winner is AI ? "AI #" + ((AI)winner).id : ((User)winner).name).ToUpper();
-                    string winnerText = "Le gagnant est {0} avec un score de {1} (vs {2})";
-                    string opponentScore = (winner == players[0] ? players[1].score : players[0].score).ToString();
+                    string name = (winner is AI ? "AI #" + ((AI)winner).id : ((User)winner).name).ToUpper(); // Nom du gagnant
+                    string winnerText = "Le gagnant est {0} avec un score de {1} (vs {2})"; // Texte du gagnant
+                    string opponentScore = (winner == players[0] ? players[1].score : players[0].score).ToString(); // Score du perdant
 
-                    endText = String.Format(endText, String.Format(winnerText, name, winner.score, opponentScore));
+                    endText = String.Format(endText, String.Format(winnerText, name, winner.score, opponentScore)); // Formater le texte final
                 }
 
+                // Afficher le panel de victoire
                 PNL_victory.Show();
                 PNL_victory.BringToFront();
 
+                // Pour tout les cartes sur le jeu
                 for (int i = 1; i <= 52; i++)
                 {
-                    Control[] c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true);
+                    Control[] c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true); // Sélectionner une carte
 
+                    // Si une carte est sélectionnée
                     if (c.Length > 0)
+                        // Et qu'elle est dans le jeu d'un joueur
                         if (c[0].Tag.ToString().StartsWith("player"))
-                            c[0].BringToFront();
+                            c[0].BringToFront(); // L'afficher en-avant de tout
                 }
 
+                // Pour chaque joueur
                 for (int i = 1; i <= players.Count; i++)
-                    Controls["PNL_game"].Controls["LB_details" + i.ToString()].BringToFront();
+                    Controls["PNL_game"].Controls["LB_details" + i.ToString()].BringToFront(); // Afficher ses informations en-avant de tout
 
-                Update();
-
-                LB_winner.Text = endText.Substring(endText.IndexOf(".") + 1);
-
-                console.showLog(endText);
+                Update(); // Update l'interface du jeu
+                LB_winner.Text = endText.Substring(endText.IndexOf(".") + 1); // Modifier le texte du gagnant
+                console.showLog(endText); // Afficher dans la console
             }
         }
 
@@ -554,49 +564,56 @@ namespace BlackJack
 
         public void reset()
         {
-            BT_hit.Enabled = true;
-            winnerShowed = false;
-            setButtons();
+            // Réinitialiser le jeu
+            BT_hit.Enabled = true; // Activer le bouton pour 'hit'
+            winnerShowed = false; // Aucun gagnant n'a été affiché
+            setButtons(); // Déterminer quel boutons afficher
 
-            currentPlayer = 0;
+            currentPlayer = 0; // Le joueur courant est le premier
+            
+            // Réinitialiser le label du score et le label du nom du joueur courant
             LB_playerScore.Text = "Score: ";
             LB_playerName.Text = players[currentPlayer] is AI ? "AI #" + ((AI)players[currentPlayer]).id : ((User)players[currentPlayer]).name;
 
-            PNL_victory.Hide();
+            PNL_victory.Hide(); // Cacher le panel de victoire
 
+            // Supprimer tout les cartes du jeu
             for (int i = 1; i <= 52; i++)
                 Controls["PNL_game"].Controls.Remove(Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0]);
             
-            Update();
-            Refresh();
+            Update(); // Update l'interface du jeu
+            Refresh(); // Rafraichir l'interface du jeu
         }
         public void restart()
         {
-            deck = new Cards();
-            reset();
-            showCards();
+            // Redémarrer le jeu
+            deck = new Cards(); // Nouveau paquet de cartes
+            reset(); // Réinitialiser le jeu
+            showCards(); // Afficher de nouvelles cartes
 
+            // Pour chaque joueur
             foreach (Player p in players)
-                p.reset(deck, STARTING_CARDS);
+                p.reset(deck, STARTING_CARDS); // Le réinitialiser
 
-            setStartingCards();
+            setStartingCards(); // Déplace les cartes données au départ dans la main des joueurs
 
-            closeConsole();
-            console = new Form_console(this);
-            console.Show();
+            closeConsole(); // Fermer la console
+            console = new Form_console(this); // Créer une nouvelle console
+            console.Show(); // Afficher la nouvelle console
 
-            updatePlayerLabels();
-            setButtons();
+            updatePlayerLabels(); // Update le label d'information des joueurs
+            setButtons(); // Déterminer quel boutons afficher
             playFirstAI(); // Faire jouer le premier joueur si c'est un AI
         }
         public void toMain()
         {
-            Program.createNewGame = true;
-            this.Close();
+            Program.createNewGame = true; // Ouvrir une autre partie
+            this.Close(); // Fermer cette partie
         }
 
         private void closeConsole()
         {
+            // Trouver la console à fermer
             Form toClose = null;
             foreach (Form form in Application.OpenForms)
             {
@@ -607,8 +624,9 @@ namespace BlackJack
                 }
             }
 
+            // Si la console est ouverte
             if (toClose != null)
-                toClose.Close();
+                toClose.Close(); // La fermer
         }
 
         #endregion
