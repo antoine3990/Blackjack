@@ -17,7 +17,7 @@ namespace BlackJack
         private Cards deck; // Jeu de cartes
         private Form_console console; // Console de jeu (log)
 
-        private int currentPlayer = -1; // Joueur courrant
+        private int currentPlayer = -1; // Joueur courant
         private const int STARTING_CARDS = 1; // Nombre de cartes par joueur au départ
         private bool winnerShowed = false; // Un gagnant à été affiché
 
@@ -243,63 +243,69 @@ namespace BlackJack
 
         private void setButtons()
         {
+            // Déterminer si le jeu ne comporte que des AI
             bool allAi = true;
             foreach (Player p in players)
                 if (p is User)
                     allAi = false;
 
+            // Si le jeu ne comporte pas que des AI
             if (!allAi)
             {
-                BT_hit.Show();
-                BT_stand.Show();
-                BT_pause.Hide();
+                BT_hit.Show(); // Afficher le bouton pour 'Hit'
+                BT_stand.Show(); // Afficher le bouton pour 'Stand'
+                BT_pause.Hide(); // Cacher le bouton pour 'Pause'
             }
             else
             {
-                BT_hit.Hide();
-                BT_stand.Hide();
-                BT_pause.Show();
+                BT_hit.Hide(); // Cacher le bouton pour 'Hit'
+                BT_stand.Hide();// Cacher le bouton pour 'Stand'
+                BT_pause.Show(); // Afficher le bouton pour 'Pause'
             }
         }
 
         private void showCards()
         {
+            // Créer et afficher les cartes sur le jeu
             for (int i = deck.toList().Count; i > 0; i--)
             {
-                Controls["PNL_game"].Controls.Add(createCard(i));
-                Controls["PNL_game"].Controls["PB_card" + i.ToString()].BringToFront();
+                Controls["PNL_game"].Controls.Add(createCard(i)); // Ajoute une carte à l'interface
+                Controls["PNL_game"].Controls["PB_card" + i.ToString()].BringToFront(); // En-avant de tout
             }
-            Update();
+            Update(); // Update l'interface du jeu
         }
         private PictureBox createCard(int cardNum)
         {
-            PictureBox pb = new PictureBox();
-            pb.Name = "PB_card" + cardNum.ToString();
-            pb.Size = new Size(121, 173);
-            pb.Location = new Point(945 + cardNum, 48);
-            pb.BackgroundImage = Properties.Resources.back;
-            pb.BackgroundImageLayout = ImageLayout.Zoom;
-            pb.BackColor = Color.Transparent;
-            pb.Visible = true;
-            pb.Tag = "deck";
+            // Crée l'interface d'une nouvelle carte
+            PictureBox pb = new PictureBox(); // Nouvelle carte
+            pb.Name = "PB_card" + cardNum.ToString(); // Nom
+            pb.Size = new Size(121, 173); // Grosseur
+            pb.Location = new Point(945 + cardNum, 48); // Position
+            pb.BackgroundImage = Properties.Resources.back; // Image
+            pb.BackgroundImageLayout = ImageLayout.Zoom; // 'Position de l'image
+            pb.BackColor = Color.Transparent; // Couleur de fond
+            pb.Visible = true; // Visible
+            pb.Tag = "deck"; // La carte est dans le 'deck'
 
-            return pb;
+            return pb; // Retourner la nouvelle carte
         }
         
-        public bool cardsRotated = false;
-        public void resizeCards()
+        public bool cardsRotated = false; // Les cartes sont retournées
+        public void rotateCards()
         {
+            // Pour chaque carte
             for (int i = 52; i > 0; i--)
             {
                 PictureBox pb = (PictureBox)Controls["PNL_game"].Controls["PB_card" + i.ToString()];
 
+                // Si les cartes n'ont pas été tournées
                 if (!cardsRotated)
-                    pb.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    pb.BackgroundImage.RotateFlip(RotateFlipType.Rotate90FlipNone); // Les tourner
                 else
-                    pb.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    pb.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipNone); // Sinon, les replacer
             }
-            Update();
-            Refresh();
+            Update(); // Update l'interface du jeu
+            Refresh(); // Rafraichir l'interface du jeu
         }
         
         #endregion
@@ -308,141 +314,167 @@ namespace BlackJack
 
         private void hit()
         {
-            BT_hit.Enabled = false;
-            Player current = players[currentPlayer];
-            Card newCard = new Card(-1, -1);
-            int oldScore = current.score;
+            BT_hit.Enabled = false; // Désactiver le bouton pour 'hit'
+            Player current = players[currentPlayer]; // Joueur courant
+            Card newCard = new Card(-1, -1); // Carte pigée
+            int oldScore = current.score; // Score du joueur courant avant le tour
 
+            // Si le joueur est un AI
             if (current is AI)
             {
+                // Déterminer si l'AI doit jouer (s'il a assez de chance de ne pas 'bust')
                 if (((AI)current).play(players[currentPlayer == 0 ? 1 : 0], deck))
                 {
-                    console.showLog(current);
-                    newCard = current.hit(deck);
+                    console.showLog(current); // Afficher dans la console
+                    newCard = current.hit(deck); // Tirer une nouvelle carte
 
+                    // Si l'ancien score est plus petit ou égal au score avec la nouvelle carte
                     if (oldScore >= current.score)
-                        ((AI)current).addToLog("Le pointage d'un As à été réduit à 1. Score -10.");
+                    {
+                        ((AI)current).addToLog("Le pointage d'un As à été réduit à 1. Score -10."); // Ajouter dans les log du joueur
+                        console.showLog(current); // Afficher dans la console
+                    }
 
+                    // Déplacer la carte pigée dans la main du joueur
                     updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
-                    setHitLog(current, newCard, oldScore);
-                    console.showLog(current);
+                    setHitLog(current, newCard, oldScore); // Update les log du joueur (Ajouter la carte tirée)
+                    console.showLog(current); // Afficher dans la console
 
-                    LB_playerScore.Text = "Score: " + current.score.ToString();
+                    LB_playerScore.Text = "Score: " + current.score.ToString(); // Update le score du joueur
                 }
                 else
-                    console.showLog(current);
+                    console.showLog(current); // Afficher dans la console
 
-                updatePlayerLabels();
+                updatePlayerLabels(); // Update le label d'information des joueurs
 
-                Player opponent = players[currentPlayer == 0 ? 1 : 0];
+                Player opponent = players[currentPlayer == 0 ? 1 : 0]; // Adversaire
+                // Si l'adversaire est un AI, OU qu'il est un humain ET qu'il est en état 'Standing'
                 if (opponent is AI || (opponent is User && opponent.status == Player.statuses.standing))
                 {
+                    // Déterminer s'il y a un gagnant, s'il en a pas
                     if (getWinner() == 0)
                     {
-                        changePlayer();
-                        hit();
+                        changePlayer(); // Changer de joueur
+                        hit(); // Hit
                     }
                     else
-                        return;
+                        return; // Sinon, quitter la méthode
                 }
             }
             else
             {
-                newCard = current.hit(deck);
-                
+                newCard = current.hit(deck); // Tirer une nouvelle carte
+
+                // Déplacer la carte pigée dans la main du joueur
                 updateHitCard(deck.toList().Count, currentPlayer, current.cards.Count);
-                setHitLog(current, newCard, oldScore);
-                console.showLog(current);
+                setHitLog(current, newCard, oldScore); // Update les log du joueur (Ajouter la carte tirée)
+                console.showLog(current); // Afficher dans la console
             }
+             
+            LB_playerScore.Text = "Score: " + current.score.ToString(); // Update le score du joueur
+            changePlayer(); // Changer de joueur
 
-            LB_playerScore.Text = "Score: " + current.score.ToString();
-            changePlayer();
+            updatePlayerLabels(); // Update le label d'information des joueurs
 
-            updatePlayerLabels();
-
+            // Déterminer s'il y a un gagnant, s'il en a pas
             if (getWinner() == 0)
             {
+                // Si le joueur courant est un AI
                 if (players[currentPlayer] is AI)
-                    hit();
+                    hit(); // Hit
             }
             else
-                return;
+                return; // Sinon, quitter la méthode
 
-            BT_hit.Enabled = true;
+            BT_hit.Enabled = true; // Activer le bouton pour 'hit'
         }
         private void updateHitCard(int cards, int player, int playerCards)
         {
-            PictureBox card = (PictureBox)Controls["PNL_game"].Controls["PB_card" + (52 - cards).ToString()];
-            card.Tag = "player" + (player + 1).ToString();
-            card.BackgroundImage = players[player].cards[playerCards - 1].img;
-            card.BringToFront();
+            // Déplacer la carte pigée dans la main du joueur
+            PictureBox card = (PictureBox)Controls["PNL_game"].Controls["PB_card" + (52 - cards).ToString()]; // Carte pigée
+            card.Tag = "player" + (player + 1).ToString(); // Tag
+            card.BackgroundImage = players[player].cards[playerCards - 1].img; // Image
+            card.BringToFront(); // Emmener en-avant de tout
 
-            int maxCards = 6;
-            int x = (164 * (player == 0 ? 1 : 4) + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30);
-            int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0);
-            card.Location = new Point(x, y);
+            int maxCards = 6; // Cartes maximales dans une rangée
+            int x = (164 * (player == 0 ? 1 : 4) + ((playerCards > maxCards ? playerCards % maxCards : playerCards) + 1) * 30); // Pos en X
+            int y = 335 + (int)(playerCards > maxCards ? Decimal.Floor(playerCards / maxCards) * 60 : 0); // Pos en Y
+            card.Location = new Point(x, y); // Position de la carte
 
+            // Si les cartes sont tournées
             if (cardsRotated)
-                card.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                card.BackgroundImage.RotateFlip(RotateFlipType.Rotate270FlipNone); // Tourner l'image
 
-            Update();
-            Refresh();
+            Update(); // Update l'interface du jeu
+            Refresh(); // Rafraichir l'interface du jeu
         }
         private void setHitLog(Player player, Card card, int oldScore)
         {
-            string[] cardNames = { "As", "Valet", "Dame", "Roi" };
+            // Définir le texte à ajouter dans le log lorsqu'un joueur 'hit'
+            string[] cardNames = { "As", "Valet", "Dame", "Roi" }; // Nom des cartes spéciales
 
-            string text = "Pige un{0} {1} de {2}, score +{3}. Score = {4}. {5}.";
-            string genre = card.rank == 12 ? "e" : "";
-            string rank = card.rank == 1 ? cardNames[card.rank - 1] : card.rank > 10 ? cardNames[card.rank - 10] : card.rank.ToString();
-            string suit = Enum.GetName(typeof(Card.suits), card.suit);
+            string text = "Pige un{0} {1} de {2}, score +{3}. Score = {4}. {5}."; // Texte à formater
+            string genre = card.rank == 12 ? "e" : ""; // Genre de la carte (Dame est féminin)
+            string rank = card.rank == 1 ? cardNames[card.rank - 1] : card.rank > 10 ? cardNames[card.rank - 10] : card.rank.ToString(); // Rang de la carte
+            string suit = Enum.GetName(typeof(Card.suits), card.suit); // Couleur de la carte
             suit = suit.Substring(0, 1).ToUpper() + suit.Substring(1);
-            string score = card.rank == 1 ? player.score - oldScore == 1 ? "1" : "11" : card.rank > 10 ? "10" : card.rank.ToString();
-            string status = Enum.GetName(typeof(Player.statuses), player.status);
+            string score = card.rank == 1 ? player.score - oldScore == 1 ? "1" : "11" : card.rank > 10 ? "10" : card.rank.ToString(); // Score de la carte
+            string status = Enum.GetName(typeof(Player.statuses), player.status); // Status du joueur courant après avoir 'hit'
             status = status.Substring(0, 1).ToUpper() + status.Substring(1);
 
-            text = string.Format(text, genre, rank, suit, score, player.score.ToString(), status);
+            text = string.Format(text, genre, rank, suit, score, player.score.ToString(), status); // Ajouter les informations au texte à formater
 
+            // Ajouter au log dépendemment que le joueur est un AI ou un User
             if (player is AI)
-                ((AI)player).addToLog(text);
+                ((AI)player).addToLog(text); // AI
             else
-                ((User)player).addToLog(text);
+                ((User)player).addToLog(text); // User
         }
         private void setStartingCards()
         {
-            int cardsToGive = players.Count * STARTING_CARDS;
+            // Déplace les cartes données au départ dans la main des joueurs
+            int cardsToGive = players.Count * STARTING_CARDS; // Nombre de cartes totales à donner
+
+            // Pour chaque joueur
             for (int i = players.Count; i > 0; i--)
+                // Lui donner le nombre de carte de départ
                 for (int j = 1; j <= STARTING_CARDS; j++)
                     updateHitCard((deck.toList().Count - cardsToGive / i + j) + (STARTING_CARDS * 2 - 1), i - 1, j);
         }
 
         private void changePlayer()
         {
+            // Changer le joueur courant
             currentPlayer = currentPlayer == players.Count - 1 ? 0 : currentPlayer + 1;
-            Player current = players[currentPlayer];
+            Player current = players[currentPlayer]; // Joueur courant
 
+            // Si le joueur courant peut encore jouer
             if (current.status == Player.statuses.playing)
             {
+                // Update le label du nom du joueur courant
                 if (current is AI)
-                    LB_playerName.Text = "AI #" + ((AI)current).id.ToString();
+                    LB_playerName.Text = "AI #" + ((AI)current).id.ToString(); // AI
                 else
-                    LB_playerName.Text = ((User)current).name;
+                    LB_playerName.Text = ((User)current).name; // User
 
-                LB_playerScore.Text = "Score: " + current.score.ToString();
+                LB_playerScore.Text = "Score: " + current.score.ToString(); // Update le du score du joueur courant
             }
             else
-                currentPlayer = currentPlayer == players.Count - 1 ? 0 : currentPlayer + 1;
+                currentPlayer = currentPlayer == players.Count - 1 ? 0 : currentPlayer + 1; // Sinon, changer de joueur
 
-            updatePlayerLabels();
+            updatePlayerLabels(); // Update le label d'information des joueurs
         }
         private void updatePlayerLabels()
         {
+            // Pour chaque joueur
             for (int i = 0; i < players.Count; i++)
             {
+                // Trouver son nom
                 string name = players[i] is AI ? "AI #" + ((AI)players[i]).id.ToString() : ((User)players[i]).name;
-                string status = Enum.GetName(typeof(Player.statuses), players[i].status);
+                string status = Enum.GetName(typeof(Player.statuses), players[i].status); // Déterminer son status
                 status = status.Substring(0, 1).ToUpper() + status.Substring(1);
 
+                // Update le nom, le status et le score du joueur dans le label d'information au-dessus des cartes
                 Controls["PNL_game"].Controls["LB_details" + (i + 1).ToString()].Text = name + " : " + status + "(" + players[i].score + ")";
             }
         }
@@ -457,7 +489,7 @@ namespace BlackJack
 
             // S'il y a au moins un AI et que c'est le premier joueur, il hit.
             if (!allAI && players[0] is AI)
-                hit();
+                hit(); // Hit
         }
 
         private int getWinner()

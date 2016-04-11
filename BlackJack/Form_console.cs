@@ -72,7 +72,7 @@ namespace BlackJack
                     break;
                 case "cl_righthand":
                     game.cardsRotated = game.cardsRotated ? false : true;
-                    game.resizeCards();
+                    game.rotateCards();
                     break;
                 default:
                     appendText("'" + command + "' n'est pas une commande. Tappez HELP pour afficher la liste de commandes.");
