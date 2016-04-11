@@ -23,11 +23,11 @@ namespace BlackJack
 
         public Form_main()
         {
-            deck = new Cards();
+            deck = new Cards(); // Créer un nouveau jeu de carte
 
-            InitializeComponent();
-            initComboBoxDifficulty();
-            showCards();
+            InitializeComponent(); // Initialiser les contrôles
+            initComboBoxDifficulty(); // Initialiser le combobox de difficulté des AI
+            showCards(); // Afficher les cartes sur le jeu
         }
 
         #region Player selection
@@ -80,11 +80,13 @@ namespace BlackJack
             setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
             setButtons(); // Afficher les boutons de jeu
 
+            // Vérifie si tout les joueurs sont des Humain
             bool allUser = true;
             foreach (Player p in players)
                 if (p is AI)
                     allUser = false;
 
+            // S'il y a au moins un AI et que c'est le premier joueur, il hit.
             if (!allUser && players[0] is AI)
                 hit();
         }
