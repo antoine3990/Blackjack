@@ -59,7 +59,7 @@ namespace BlackJack
             for (int i = 1; i <= 2; i++)
             {
                 ComboBox CB = (ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()];
-
+                
                 if (CB.SelectedIndex == 0)
                     addUser(i); // Ajoute un Humain
                 else
@@ -82,13 +82,13 @@ namespace BlackJack
             setButtons(); // Afficher les boutons de jeu
 
             // Vérifie si tout les joueurs sont des Humain
-            bool allUser = true;
+            bool allAI = true;
             foreach (Player p in players)
-                if (p is AI)
-                    allUser = false;
+                if (p is User)
+                    allAI = false;
 
             // S'il y a au moins un AI et que c'est le premier joueur, il hit.
-            if (!allUser && players[0] is AI)
+            if (!allAI && players[0] is AI)
                 hit();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
@@ -498,6 +498,7 @@ namespace BlackJack
 
         public void reset()
         {
+            BT_hit.Enabled = true;
             winnerShowed = false;
             setButtons();
 
@@ -542,7 +543,7 @@ namespace BlackJack
 
             updatePlayerLabels();
 
-            BT_pause.Visible = true;
+            setButtons();
         }
         public void toMain()
         {
