@@ -13,13 +13,13 @@ namespace BlackJack
 {
     public partial class Form_main : Form
     {
-        public List<Player> players = new List<Player>();
-        private Cards deck;
-        private Form_console console;
+        public List<Player> players = new List<Player>(); // Joueurs
+        private Cards deck; // Jeu de cartes
+        private Form_console console; // Console de jeu (log)
 
-        private int currentPlayer = -1;
-        private const int STARTING_CARDS = 1;
-        private bool winnerShowed = false;
+        private int currentPlayer = -1; // Joueur courrant
+        private const int STARTING_CARDS = 1; // Nombre de cartes par joueur au départ
+        private bool winnerShowed = false; // Un gagnant à été affiché
 
         public Form_main()
         {
@@ -34,10 +34,12 @@ namespace BlackJack
 
         #region Player selection
 
+        // Lorsque le bouton de 'Compte les cartes' est cliqué
         private void BT_cardCounter_Click(object send, EventArgs e)
         {
             Button sender = (Button)send;
 
+            // Si le bouton est activé, le désactiver et changer son background. Vice-versa.
             if (sender.Tag.ToString() == "yes")
             {
                 sender.BackgroundImage = Properties.Resources.incorrect_small;
@@ -61,22 +63,23 @@ namespace BlackJack
                 ComboBox CB = (ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()];
 
                 if (CB.SelectedIndex == 0)
-                    addUser(i);
+                    addUser(i); // Ajoute un Humain
                 else
-                    addAI(i);
+                    addAI(i); // Ajoute un AI
 
                 if (players.Count < i)
                     return;
             }
 
+            // Afficher le panel de jeu
             PNL_game.Show();
             PNL_game.BringToFront();
-            changePlayer();
+            changePlayer(); // Commencer le jeu par le joueur 1
             
             console = new Form_console(this);
-            console.Show();
+            console.Show(); // Afficher la console
 
-            setStartingCards();
+            setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -96,15 +99,7 @@ namespace BlackJack
             }
             showLabelCardCounter();
         }
-
-        private void setStartingCards()
-        {
-            int cardsToGive = players.Count * STARTING_CARDS;
-            for (int i = players.Count; i > 0; i--)
-                for (int j = 1; j <= STARTING_CARDS; j++)
-                    updateHitCard((deck.toList().Count - cardsToGive /i + j) + (STARTING_CARDS*2 - 1), i - 1, j);
-        }
-
+        
         private void addUser(int i)
         {
             string name = ((TextBox)Controls["PNL_main"].Controls["TB_name" + i.ToString()]).Text;
@@ -214,6 +209,38 @@ namespace BlackJack
             hit();
         }
 
+        private void BT_restart_Click(object sender, EventArgs e)
+        {
+            restart();
+        }
+        private void BT_toMain_Click(object sender, EventArgs e)
+        {
+            toMain();
+        }
+
+        private void setButtons()
+        {
+            BT_pause.Text = "Start";
+
+            bool allAi = true;
+            foreach (Player p in players)
+                if (p is User)
+                    allAi = false;
+
+            if (!allAi)
+            {
+                BT_hit.Show();
+                BT_stand.Show();
+                BT_pause.Hide();
+            }
+            else
+            {
+                BT_hit.Hide();
+                BT_stand.Hide();
+                BT_pause.Show();
+            }
+        }
+
         private void showCards()
         {
             for (int i = deck.toList().Count; i > 0; i--)
@@ -253,42 +280,7 @@ namespace BlackJack
             Update();
             Refresh();
         }
-
-        private void updatePlayerLabels()
-        {
-            for (int i = 0; i < players.Count; i++)
-            {
-                string name = players[i] is AI ? "AI #" + ((AI)players[i]).id.ToString() : ((User)players[i]).name;
-                string status = Enum.GetName(typeof(Player.statuses), players[i].status);
-                status = status.Substring(0, 1).ToUpper() + status.Substring(1);
-
-                Controls["PNL_game"].Controls["LB_details" + (i + 1).ToString()].Text = name + " : " + status;
-            }
-        }
-
-        private void setButtons()
-        {
-            BT_pause.Text = "Start";
-
-            bool allAi = true;
-            foreach (Player p in players)
-                if (p is User)
-                    allAi = false;
-
-            if (!allAi)
-            {
-                BT_hit.Show();
-                BT_stand.Show();
-                BT_pause.Hide();
-            }
-            else
-            {
-                BT_hit.Hide();
-                BT_stand.Hide();
-                BT_pause.Show();
-            }
-        }
-
+        
         #endregion
 
         #region Player Operations
@@ -395,6 +387,13 @@ namespace BlackJack
             else
                 ((User)player).addToLog(text);
         }
+        private void setStartingCards()
+        {
+            int cardsToGive = players.Count * STARTING_CARDS;
+            for (int i = players.Count; i > 0; i--)
+                for (int j = 1; j <= STARTING_CARDS; j++)
+                    updateHitCard((deck.toList().Count - cardsToGive / i + j) + (STARTING_CARDS * 2 - 1), i - 1, j);
+        }
 
         private void changePlayer()
         {
@@ -414,6 +413,17 @@ namespace BlackJack
                 currentPlayer = currentPlayer == players.Count - 1 ? 0 : currentPlayer + 1;
 
             updatePlayerLabels();
+        }
+        private void updatePlayerLabels()
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                string name = players[i] is AI ? "AI #" + ((AI)players[i]).id.ToString() : ((User)players[i]).name;
+                string status = Enum.GetName(typeof(Player.statuses), players[i].status);
+                status = status.Substring(0, 1).ToUpper() + status.Substring(1);
+
+                Controls["PNL_game"].Controls["LB_details" + (i + 1).ToString()].Text = name + " : " + status;
+            }
         }
 
         private int getWinner()
@@ -539,15 +549,5 @@ namespace BlackJack
         }
 
         #endregion
-
-        private void BT_restart_Click(object sender, EventArgs e)
-        {
-            restart();
-        }
-
-        private void BT_toMain_Click(object sender, EventArgs e)
-        {
-            toMain();
-        }
     }
 }
