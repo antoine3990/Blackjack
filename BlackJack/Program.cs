@@ -9,7 +9,7 @@ namespace BlackJack
     static class Program
     {
         public static int POINTS_TO_WIN = 21;
-
+        public static bool createNewGame = false;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -18,7 +18,11 @@ namespace BlackJack
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_main());
+
+            do
+            {
+                Application.Run(new Form_main());
+            } while (createNewGame);
         }
     }
 }

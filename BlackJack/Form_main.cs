@@ -23,6 +23,7 @@ namespace BlackJack
 
         public Form_main()
         {
+            Program.createNewGame = false; // Réouvrir une fenêtre de jeu après avoir gagner
             deck = new Cards(); // Créer un nouveau jeu de carte
 
             InitializeComponent(); // Initialiser les contrôles
@@ -78,11 +79,11 @@ namespace BlackJack
             console = new Form_console(this);
             console.Show(); // Afficher la console
 
-            setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
+            setStartingCards(); // Attribuer les cartes que les joueurs ont obtenues au départ de la partie
             setButtons(); // Afficher les boutons de jeu
-
-            // Faire jouer le premier joueur si c'est un AI
-            playFirstAI();
+            updatePlayerLabels(); // Update le label d'information des joueurs
+            
+            playFirstAI(); // Faire jouer le premier joueur si c'est un AI
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -109,32 +110,41 @@ namespace BlackJack
         
         private void addUser(int i)
         {
-            string name = ((TextBox)Controls["PNL_main"].Controls["TB_name" + i.ToString()]).Text;
-            int minLength = 3;
+            string name = ((TextBox)Controls["PNL_main"].Controls["TB_name" + i.ToString()]).Text; // Nom du joueur
+            int minLength = 3; // Longueur du nom minimale
+
+            // Si le nom du joueur n'est pas assez long
             if (name.Length < minLength)
             {
+                // Afficher un message d'erreur
                 MessageBox.Show("Le nom du joueur #" + i.ToString() + " doit comporter au moins " + minLength.ToString() + " lettres.");
-                players.Clear();
-                return;
+                players.Clear(); // Supprimer tout les joueurs
+                return; // Quitter la méthode
             }
-
-            players.Add(new User(name, deck, STARTING_CARDS));
+            
+            players.Add(new User(name, deck, STARTING_CARDS)); // Ajouter un humain
         }
         private void addAI(int i)
         {
+            // Difficulté de l'AI
             int difficulty = ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + i.ToString()]).SelectedIndex;
+            // L'AI est un compteur de carte ?
             bool cardCounter = ((Button)Controls["PNL_main"].Controls["BT_cardCounter" + i.ToString()]).Tag.ToString() == "yes";
+            // Niveau de risque de l'AI
             AI.riskLevel risk = difficulty == 0 ? AI.riskLevel.prudent : difficulty == 1 ? AI.riskLevel.standard : AI.riskLevel.brave;
 
-            players.Add(new AI(cardCounter, risk, i, deck, STARTING_CARDS));
+            players.Add(new AI(cardCounter, risk, i, deck, STARTING_CARDS)); // Ajouter l'AI
         }
 
         private void initComboBoxDifficulty()
         {
+            // Pour tout les niveaux de risques disponibles de l'AI
             foreach (AI.riskLevel risk in Enum.GetValues(typeof(AI.riskLevel)))
             {
-                string riskName = Enum.GetName(typeof(AI.riskLevel), risk);
+                // Trouver le nom de la difficulté
+                string riskName = Enum.GetName(typeof(AI.riskLevel), risk); 
                 riskName = riskName.Substring(0, 1).ToUpper() + riskName.Substring(1);
+
 
                 for (int i = 1; i <= 2; i++)
                     ((ComboBox)Controls["PNL_main"].Controls["CB_difficulty" + i.ToString()]).Items.Add(riskName);
@@ -199,8 +209,9 @@ namespace BlackJack
             changePlayer(); // Changer de joueur
             getWinner(); // Afficher le gagnant, s'il y en a.
 
+            // Si le joueur d'après est un AI
             if (players[currentPlayer] is AI)
-                hit();
+                hit(); // Hit
         }
         private void BT_hit_Click(object sender, EventArgs e)
         {
@@ -423,7 +434,7 @@ namespace BlackJack
                 string status = Enum.GetName(typeof(Player.statuses), players[i].status);
                 status = status.Substring(0, 1).ToUpper() + status.Substring(1);
 
-                Controls["PNL_game"].Controls["LB_details" + (i + 1).ToString()].Text = name + " : " + status;
+                Controls["PNL_game"].Controls["LB_details" + (i + 1).ToString()].Text = name + " : " + status + "(" + players[i].score + ")";
             }
         }
 
@@ -478,9 +489,11 @@ namespace BlackJack
 
                 for (int i = 1; i <= 52; i++)
                 {
-                    Control c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true)[0];
-                    if (c.Tag.ToString().StartsWith("player"))
-                        c.BringToFront();
+                    Control[] c = Controls["PNL_game"].Controls.Find("PB_card" + i.ToString(), true);
+
+                    if (c.Length > 0)
+                        if (c[0].Tag.ToString().StartsWith("player"))
+                            c[0].BringToFront();
                 }
 
                 for (int i = 1; i <= players.Count; i++)
@@ -527,6 +540,22 @@ namespace BlackJack
 
             setStartingCards();
 
+            closeConsole();
+            console = new Form_console(this);
+            console.Show();
+
+            updatePlayerLabels();
+            setButtons();
+            playFirstAI(); // Faire jouer le premier joueur si c'est un AI
+        }
+        public void toMain()
+        {
+            Program.createNewGame = true;
+            this.Close();
+        }
+
+        private void closeConsole()
+        {
             Form toClose = null;
             foreach (Form form in Application.OpenForms)
             {
@@ -539,31 +568,6 @@ namespace BlackJack
 
             if (toClose != null)
                 toClose.Close();
-
-            console = new Form_console(this);
-            console.Show();
-
-            updatePlayerLabels();
-
-            setButtons();
-
-            // Faire jouer le premier joueur si c'est un AI
-            playFirstAI();
-        }
-        public void toMain()
-        {
-            reset();
-
-            for (int i = 1; i <= players.Count; i++)
-            {
-                ((ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()]).SelectedIndex = 0;
-                Controls["PNL_main"].Controls["TB_name" + i.ToString()].Text = "";
-                resetAiSettings(i.ToString());
-            }
-            players.Clear();
-
-            PNL_main.Show();
-            PNL_main.BringToFront();
         }
 
         #endregion
