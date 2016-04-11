@@ -27,7 +27,7 @@ namespace BlackJack
 
         public bool play(Player opponent, Cards deck)
         {
-            //Mets a jour la console tout dependant ce que le AI fait
+            //Met a jour la console tout dependant ce que le AI fait
             if (this.status == statuses.standing)
             {
                 addToLog("Standing.");
