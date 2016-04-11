@@ -23,11 +23,11 @@ namespace BlackJack
 
         public Form_main()
         {
-            deck = new Cards();
+            deck = new Cards(); // Créer un nouveau jeu de carte
 
-            InitializeComponent();
-            initComboBoxDifficulty();
-            showCards();
+            InitializeComponent(); // Initialiser les contrôles
+            initComboBoxDifficulty(); // Initialiser le combobox de difficulté des AI
+            showCards(); // Afficher les cartes sur le jeu
         }
 
         #region Player selection
@@ -59,12 +59,13 @@ namespace BlackJack
             for (int i = 1; i <= 2; i++)
             {
                 ComboBox CB = (ComboBox)Controls["PNL_main"].Controls["CB_player" + i.ToString()];
-
+                
                 if (CB.SelectedIndex == 0)
                     addUser(i); // Ajoute un Humain
                 else
                     addAI(i); // Ajoute un AI
 
+                // S'il y a eu une erreur lors de la création d'un joueur, quitter la méthode.
                 if (players.Count < i)
                     return;
             }
@@ -80,30 +81,36 @@ namespace BlackJack
             setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
             setButtons(); // Afficher les boutons de jeu
 
-            bool allUser = true;
+            // Vérifie si tout les joueurs sont des Humain
+            bool allAI = true;
             foreach (Player p in players)
-                if (p is AI)
-                    allUser = false;
+                if (p is User)
+                    allAI = false;
 
-            if (!allUser && players[0] is AI)
+            // S'il y a au moins un AI et que c'est le premier joueur, il hit.
+            if (!allAI && players[0] is AI)
                 hit();
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
             ComboBox sender = (ComboBox)send;
-            string numPlayer = sender.Name.Substring(9, 1);
+            string numPlayer = sender.Name.Substring(9, 1); // Numéro du joueur (0|1)
 
+            // Si 'Humain' est sélectionné, afficher la textbox du nom
             if (sender.SelectedIndex == 0)
             {
                 Controls["PNL_main"].Controls["TB_name" + numPlayer].Show();
                 resetAiSettings(numPlayer);
             }
+            // Sinon, afficher le combobox de difficulté des AI + le bouton de 'Compter les cartes'
             else if (sender.SelectedIndex == 1)
             {
                 Controls["PNL_main"].Controls["TB_name" + numPlayer].Hide();
                 Controls["PNL_main"].Controls["CB_difficulty" + numPlayer].Show();
                 Controls["PNL_main"].Controls["BT_cardCounter" + numPlayer].Show();
             }
+
+            // Afficher le label 'Compte les cartes'
             showLabelCardCounter();
         }
         
@@ -491,6 +498,7 @@ namespace BlackJack
 
         public void reset()
         {
+            BT_hit.Enabled = true;
             winnerShowed = false;
             setButtons();
 
@@ -535,7 +543,7 @@ namespace BlackJack
 
             updatePlayerLabels();
 
-            BT_pause.Visible = true;
+            setButtons();
         }
         public void toMain()
         {
