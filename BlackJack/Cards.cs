@@ -24,14 +24,14 @@ namespace BlackJack
 
         public Card(Card newCard)
         {
-            this.suit = newCard.suit;
-            this.rank = newCard.rank;
+            this.suit = newCard.suit;   //Affecte la couleur de la carte
+            this.rank = newCard.rank;   //Affecte la valeur de la carte
             setImg();
         }
 
         private void setImg()
         {
-            img = (Image)Properties.Resources.ResourceManager.GetObject("_" + suit.ToString() + rank.ToString());
+            img = (Image)Properties.Resources.ResourceManager.GetObject("_" + suit.ToString() + rank.ToString());   //Affecte l'image correspondant a la carte
         }
     }
 
@@ -51,7 +51,7 @@ namespace BlackJack
         {
             cards = new List<Card>();
 
-            foreach (Card.suits suit in Enum.GetValues(typeof(Card.suits)))
+            foreach (Card.suits suit in Enum.GetValues(typeof(Card.suits))) //Ajoute toutes les cartes a une liste
             {
                 for (int i = 1; i <= cardsPerDeck; i++)
                     cards.Add(new Card((int)suit, i));
@@ -65,7 +65,7 @@ namespace BlackJack
             Card toReturn = new Card(cards[0]);
             cards.RemoveAt(0);
 
-            if (cards.Count == 0)
+            if (cards.Count == 0)   //Si le paquet est vide, remplir le paquet
                 fill();
 
             return toReturn;
@@ -73,7 +73,7 @@ namespace BlackJack
 
         public List<Card> toList()
         {
-            return cards;
+            return cards;   //Retourne la liste de cartes
         }
     }
 }
