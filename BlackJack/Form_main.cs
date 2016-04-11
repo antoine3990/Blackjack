@@ -28,8 +28,6 @@ namespace BlackJack
             InitializeComponent();
             initComboBoxDifficulty();
             showCards();
-
-            setButtons();
         }
 
         #region Player selection
@@ -80,6 +78,7 @@ namespace BlackJack
             console.Show(); // Afficher la console
 
             setStartingCards(); // Afficher les cartes que les joueurs ont obtenues au départ de la partie
+            setButtons(); // Afficher les boutons de jeu
         }
         private void CB_player_SelectedIndexChanged(object send, EventArgs e)
         {
@@ -220,8 +219,6 @@ namespace BlackJack
 
         private void setButtons()
         {
-            BT_pause.Text = "Start";
-
             bool allAi = true;
             foreach (Player p in players)
                 if (p is User)
